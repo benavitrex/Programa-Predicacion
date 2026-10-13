@@ -133,28 +133,47 @@ function chg(msg){dirty=true;$('#sv').disabled=false;$('#st').className='save-st
 function clean(msg,cls=''){dirty=false;$('#sv').disabled=true;$('#st').className='save-status '+cls;$('#st').textContent=msg||'';}
 addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
 
+/* ---------- Reglas de grupo y reparto homogéneo ---------- */
+const nrm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+// ¿La casa es del hermano? Usa un campo explícito si existe; si no, compara apellidos con el nombre de la casa.
+const isOwner=(c,h)=>{if(!c||!h)return false;
+ if([c.anc,c.hid,c.resp,c.owner,c.dueno].some(v=>v!=null&&v!==''&&String(v)===String(h.id)))return true;
+ const tk=nrm(h.nombre).split(/\s+/).slice(1).filter(t=>t.length>2),cn=nrm(c.nombre);return tk.length>0&&tk.some(t=>cn.includes(t));};
 function gen(keep,only,force){
  document.querySelectorAll('[data-h]').forEach(i=>H[i.dataset.h][0]=i.value);
  document.querySelectorAll('[data-n]').forEach(i=>H[i.dataset.n][1]=+i.value);
  localStorage.setItem('pj_hor',JSON.stringify(H));
  const[y,m]=MES.split('-').map(Number),L=hist()[prevKey(MES)]?.rows||[];
  const lc=new Set(L.map(r=>r.c)),lcd=new Set(L.map(r=>r.c+'|'+P(r.f).getDay())),lhd=new Set(L.map(r=>r.h+'|'+P(r.f).getDay())),lp=new Set(L.map(r=>r.c+'|'+r.h));
- const old=keep?ROWS.slice():[],[uC,uH]=usage(MES),lC={},lH={};ROWS=old.slice();let i=0;
+ const old=keep?ROWS.slice():[],[uC,uH]=usage(MES),lC={},lH={},mC={},mH={};ROWS=old.slice();let i=0;
  const tU={},pickT=(c,ex)=>{const o=(c.cerca?.length?c.cerca:[c.terr]).map(String),fr=o.filter(t=>!ex||!ex.has(t)),t=(fr.length?fr:o).slice().sort((a,b)=>(tU[a]||0)-(tU[b]||0))[0];tU[t]=(tU[t]||0)+1;ex?.add(t);return t;};
- old.forEach(r=>{if(r.c)uC[r.c]=(uC[r.c]||0)+1;if(r.h)uH[r.h]=(uH[r.h]||0)+1;if(r.terr)tU[r.terr]=(tU[r.terr]||0)+1;});
+ old.forEach(r=>{if(r.c){uC[r.c]=(uC[r.c]||0)+1;mC[r.c]=(mC[r.c]||0)+1;}if(r.h){uH[r.h]=(uH[r.h]||0)+1;mH[r.h]=(mH[r.h]||0)+1;}if(r.terr)tU[r.terr]=(tU[r.terr]||0)+1;});
+ // Capacidad del mes: en cuántas salidas puede participar cada casa/hermano según su disponibilidad
+ const capC={},capH={};
+ for(let d=new Date(y,m-1,1);d.getMonth()==m-1;d.setDate(d.getDate()+1)){const dw=d.getDay(),[h0,n0]=H[dw];
+  h0.split(',').map(s=>s.trim()).filter(Boolean).forEach(hr=>{const t=hr<'14:00'?'M':'T';
+   DB.casas.forEach(x=>{if(x.activa!==false&&avail(x,dw,t))capC[x.id]=(capC[x.id]||0)+n0;});
+   DB.hermanos.forEach(x=>{if(x.grupo&&x.activa!==false&&avail(x,dw,t))capH[x.id]=(capH[x.id]||0)+n0;});});}
+ // Puntaje de equidad (menor = va primero): carga del mes en proporción a su disponibilidad + historial + descanso de 2-3 días
+ const fair=(x,u,mm,cap,l)=>(u[x.id]||0)*.6+((mm[x.id]||0)/(cap[x.id]||1))*14+(l[x.id]===undefined?0:Math.max(0,3-(i-l[x.id]))*3);
  for(let d=new Date(y,m-1,1);d.getMonth()==m-1;d.setDate(d.getDate()+1),i++){
   if(only&&iso(d)!=only)continue;
   const dow=d.getDay(),[hs,n]=H[dow],od=old.filter(r=>r.f==iso(d)),hUsed=new Set(od.map(r=>r.h)),cUsed=new Set(od.map(r=>r.c));
+  const take=(c,h)=>{if(c){cUsed.add(c.id);uC[c.id]=(uC[c.id]||0)+1;mC[c.id]=(mC[c.id]||0)+1;lC[c.id]=i;}if(h){hUsed.add(h.id);uH[h.id]=(uH[h.id]||0)+1;mH[h.id]=(mH[h.id]||0)+1;lH[h.id]=i;}};
   const horas=hs.split(',').map(s=>s.trim()).filter(Boolean);
   const gsDay=dow==6&&(only&&force?force=='g':od.some(r=>r.gs)?true:od.some(r=>r.hora<'14:00')?false:gsN().includes(Math.ceil(d.getDate()/7)));
   if(gsDay){
    const hm=horas.find(x=>x<'14:00')||'10:30',tx=new Set(od.filter(r=>r.gs).map(r=>r.terr));
    for(let g=1;g<=GR_N;g++){
     if(od.some(r=>r.gs&&+r.g==g))continue;
-    const c=best(DB.casas.filter(x=>x.activa!==false&&avail(x,dow,'M')&&!cUsed.has(x.id)),x=>(uC[x.id]||0)*4+(x.gr==g?-10:x.gr?3:0)+(lcd.has(x.id+'|'+dow)?6:lc.has(x.id)?2:0),lC);
-    const h=best(DB.hermanos.filter(x=>x.grupo&&x.activa!==false&&x.gr==g&&avail(x,dow,'M')&&!hUsed.has(x.id)),x=>(uH[x.id]||0)*3+rkL(x)*2+(lhd.has(x.id+'|'+dow)?6:0),lH);
-    if(c){cUsed.add(c.id);uC[c.id]=(uC[c.id]||0)+1;lC[c.id]=i;}
-    if(h){hUsed.add(h.id);uH[h.id]=(uH[h.id]||0)+1;lH[h.id]=i;}
+    // 1) Encargado: ANCIANO del grupo (si no hay ninguno disponible, siervo ministerial y luego otro hermano del grupo)
+    const pool=DB.hermanos.filter(x=>x.grupo&&x.activa!==false&&+x.gr==g&&avail(x,dow,'M')&&!hUsed.has(x.id));
+    const cand=[0,1,2].map(k=>pool.filter(x=>rkL(x)==k)).find(a=>a.length)||[];
+    const h=best(cand,x=>fair(x,uH,mH,capH,lH)+(lhd.has(x.id+'|'+dow)?6:0),lH);
+    // 2) Casa: solo casas DEL GRUPO; la del propio anciano tiene prioridad
+    const cp=DB.casas.filter(x=>x.activa!==false&&+x.gr==g&&avail(x,dow,'M')&&!cUsed.has(x.id));
+    const c=best(cp,x=>fair(x,uC,mC,capC,lC)+(isOwner(x,h)?-40:0)+(lcd.has(x.id+'|'+dow)?4:lc.has(x.id)?1:0),lC);
+    take(c,h);
     ROWS.push({id:uid(),f:iso(d),hora:hm,g,gs:1,c:c?.id||'',h:h?.id||'',terr:c?pickT(c,tx):''});
    }
   }
@@ -163,10 +182,9 @@ function gen(keep,only,force){
    const t=hora<'14:00'?'M':'T';
    for(let g=1;g<=n;g++){
     if(od.some(r=>r.hora==hora&&(+r.g||0)==(n>1?g:0)))continue;
-    const c=best(DB.casas.filter(x=>x.activa!==false&&avail(x,dow,t)&&!cUsed.has(x.id)),x=>(uC[x.id]||0)*4+(lcd.has(x.id+'|'+dow)?6:lc.has(x.id)?2:0),lC);
-    const h=best(DB.hermanos.filter(x=>x.grupo&&x.activa!==false&&avail(x,dow,t)&&!hUsed.has(x.id)),x=>(uH[x.id]||0)*4+(lhd.has(x.id+'|'+dow)?6:0)+(c&&lp.has(c.id+'|'+x.id)?8:0),lH);
-    if(c){cUsed.add(c.id);uC[c.id]=(uC[c.id]||0)+1;lC[c.id]=i;}
-    if(h){hUsed.add(h.id);uH[h.id]=(uH[h.id]||0)+1;lH[h.id]=i;}
+    const c=best(DB.casas.filter(x=>x.activa!==false&&avail(x,dow,t)&&!cUsed.has(x.id)),x=>fair(x,uC,mC,capC,lC)+(lcd.has(x.id+'|'+dow)?6:lc.has(x.id)?2:0),lC);
+    const h=best(DB.hermanos.filter(x=>x.grupo&&x.activa!==false&&avail(x,dow,t)&&!hUsed.has(x.id)),x=>fair(x,uH,mH,capH,lH)+(lhd.has(x.id+'|'+dow)?6:0)+(c&&lp.has(c.id+'|'+x.id)?8:0),lH);
+    take(c,h);
     ROWS.push({id:uid(),f:iso(d),hora,g:n>1?g:0,c:c?.id||'',h:h?.id||'',terr:c?pickT(c):''});
    }
   }
@@ -198,9 +216,9 @@ function weekHtml(k,i,uC,uH){
   let hc='',cc='',tc='',ac='';
   hc=`<span class=tx><b class=hv>${esc(r.hora)}</b></span>${EM?`<input class="ed hora" data-r=${r.id} data-f=hora value="${esc(r.hora)}">`:''}${r.g?`<span class=cap>Grupo ${r.g}</span>`:''}`;
   if(EM){
-   const okC=DB.casas.filter(x=>x.activa!==false&&avail(x,dow,t)),okH0=DB.hermanos.filter(x=>x.grupo&&x.activa!==false&&avail(x,dow,t)),okH=r.gs&&okH0.some(x=>x.gr==r.g)?okH0.filter(x=>x.gr==r.g):okH0;
-   ac=`<span class=tx>${h?`<b>${esc(h.nombre)}</b>`:'<span class=mut>Sin encargado</span>'}</span>${sel('h',r,DB.hermanos.filter(x=>x.grupo),okH,uH,null,r.h)}<span class="cap ed">${h?'Saca grupo: '+dabbrT(h):'Sin encargado disponible'}</span>`;
-   cc=`<span class=tx>${c?`<b>${esc(c.nombre)}</b><span class=cap>${esc(c.dir)}</span>`:'<span class=mut>Sin casa</span>'}</span>${sel('c',r,DB.casas.filter(x=>x.activa!==false||x.id==r.c),okC,uC,lastC,r.c)}<span class="cap ed">${c?(c.activa===false?'⚠ Casa en pausa · ':'')+esc(c.dir)+' · Disp.: '+dabbrT(c):'Sin casa disponible'}</span>`;
+   const okC1=DB.casas.filter(x=>x.activa!==false&&avail(x,dow,t)),okH0=DB.hermanos.filter(x=>x.grupo&&x.activa!==false&&avail(x,dow,t)),gE=okH0.filter(x=>+x.gr==+r.g),gA=gE.filter(x=>rkL(x)==0),okH=r.gs?(gA.length?gA:gE.length?gE:okH0):okH0,okC=r.gs&&okC1.some(x=>+x.gr==+r.g)?okC1.filter(x=>+x.gr==+r.g):okC1;
+   ac=`<span class=tx>${h?`<b>${esc(h.nombre)}</b>`:'<span class=mut>Sin encargado</span>'}</span>${sel('h',r,DB.hermanos.filter(x=>x.grupo),okH,uH,null,r.h)}<span class="cap ed">${r.gs&&h&&rkL(h)!=0?'⚠ No es anciano · ':''}${h?'Saca grupo: '+dabbrT(h):'Sin encargado disponible'}</span>`;
+   cc=`<span class=tx>${c?`<b>${esc(c.nombre)}</b><span class=cap>${esc(c.dir)}</span>`:'<span class=mut>Sin casa</span>'}</span>${sel('c',r,DB.casas.filter(x=>x.activa!==false||x.id==r.c),okC,uC,lastC,r.c)}<span class="cap ed">${c?(c.activa===false?'⚠ Casa en pausa · ':'')+(r.gs&&+c.gr!=+r.g?'⚠ No es casa del Grupo '+r.g+' · ':'')+(r.gs&&isOwner(c,h)?'🏠 Casa del anciano · ':'')+esc(c.dir)+' · Disp.: '+dabbrT(c):(r.gs?'⚠ Sin casa disponible en el Grupo '+r.g:'Sin casa disponible')}</span>`;
    tc=`<span class=tx>${r.terr?`<span class="tag active">${esc(r.terr)}</span>`:'<span class=mut>—</span>'}</span><input class="ed terr" data-r=${r.id} data-f=terr value="${esc(r.terr)}">`;
   }else{
    ac=`<span class=tx>${h?`<b>${esc(h.nombre)}</b>`:'<span class=mut>Sin encargado</span>'}</span>`;
