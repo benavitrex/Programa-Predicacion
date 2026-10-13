@@ -342,11 +342,15 @@
       "cerca": [
         12
       ],
-      "turno": "MT",
-      "dias": [],
-      "activa": false,
+      "turno": "M",
+      "dias": [
+        6
+      ],
+      "activa": true,
       "gr": "",
-      "dt": {}
+      "dt": {
+        "6": "M"
+      }
     },
     {
       "id": "wdy4jqe",
