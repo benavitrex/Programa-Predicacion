@@ -166,11 +166,15 @@ button:focus-visible,.icon-btn:focus-visible,nav a:focus-visible,.chip:focus-vis
 .dd.on{opacity:1;background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
 .dd.sel{outline:2px solid var(--ink);outline-offset:1px}
 .dd::after{content:attr(data-s);display:block;font-size:10px;line-height:1.1;min-height:11px;margin-top:1px}
-.chip.dc{display:inline-flex;flex-direction:column;align-items:center;min-width:36px;line-height:1.15}
-.chip.dc::after{content:attr(data-s);display:block;font-size:11px;line-height:1;min-height:12px;margin-top:2px}
-.dgrid{display:grid;gap:6px;margin:6px 0 10px}
-.drow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
-.drow .dn{flex:0 0 92px;font-weight:600;font-size:13.5px}
+.tm{display:grid;grid-template-columns:58px repeat(7,minmax(26px,1fr));gap:4px;align-items:center;min-width:250px}
+.tm .th{font:600 10.5px var(--mono);text-align:center;color:var(--soft);cursor:pointer;padding:2px 0;border-radius:6px}
+.tm .th:hover{color:var(--ink);background:var(--fill)}
+.tm .tl{font-size:11.5px;font-weight:600;color:var(--soft)}
+.cell{height:24px;border-radius:7px;border:1px solid var(--line);background:var(--card);cursor:pointer;display:grid;place-items:center;transition:background .12s,border-color .12s}
+.cell:hover{border-color:var(--brand)}
+.cell.on{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.cell.on::after{content:'✓';font-size:12px;font-weight:700;line-height:1}
+.cell:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 .wsum{font-size:12px;color:var(--soft);margin-top:7px}
 .bd{display:inline-block;font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:99px;border:1px solid var(--line);background:var(--fill);color:var(--ink);white-space:nowrap}
 .rk-AN{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
@@ -207,6 +211,8 @@ button:focus-visible,.icon-btn:focus-visible,nav a:focus-visible,.chip:focus-vis
  .etable td:last-child{border-bottom:0}
  .etable td::before{content:attr(data-label);font:700 10px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--soft);flex:none}
  .etable td.nm{display:block}.etable td.nm::before{content:none}
+ .etable td.dy{flex-direction:column;align-items:stretch;gap:8px}
+ .tm{min-width:0}
 }
 
 /* ---- Tabla ---- */

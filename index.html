@@ -41,7 +41,7 @@ dialog.wide{width:min(560px,calc(100% - 32px));max-height:90vh;overflow:auto}
 </div>
 
 <section class="card noprint" id="ph" hidden><span class="eyebrow">Edición</span><h2>Hermanos</h2>
- <div class="panel-head"><p class="sub">Registra hermanos con su rango y grupo. Toca cada día para elegir su turno: ☀ mañana → 🌙 tarde → ☀🌙 ambos → libre.</p><button id="addH" class="pri" type="button">+ Añadir hermano</button></div>
+ <div class="panel-head"><p class="sub">Registra hermanos con su rango y grupo. En la tabla, marca los días y turnos (mañana o tarde) en que puede salir.</p><button id="addH" class="pri" type="button">+ Añadir hermano</button></div>
  <div class="controls">
   <input type="search" id="eq_hermanos" placeholder="Buscar hermano en la lista…" aria-label="Buscar hermano en la lista">
   <select id="ef_hermanos" aria-label="Filtrar lista"><option value="">Todos</option><option value="si">Sacan grupo</option><option value="no">No sacan grupo</option></select>
@@ -53,7 +53,7 @@ dialog.wide{width:min(560px,calc(100% - 32px));max-height:90vh;overflow:auto}
 </section>
 
 <section class="card noprint" id="pc" hidden><span class="eyebrow">Edición</span><h2>Casas</h2>
- <div class="panel-head"><p class="sub">Registra casas con su dirección y territorios. Toca cada día para elegir en qué turno recibe: ☀ mañana → 🌙 tarde → ☀🌙 ambos → libre.</p><button id="addC" class="pri" type="button">+ Añadir casa</button></div>
+ <div class="panel-head"><p class="sub">Registra casas con su dirección y territorios. En la tabla, marca los días y turnos (mañana o tarde) en que recibe.</p><button id="addC" class="pri" type="button">+ Añadir casa</button></div>
  <div class="controls">
   <input type="search" id="eq_casas" placeholder="Buscar casa en la lista…" aria-label="Buscar casa en la lista">
   <select id="ef_casas" aria-label="Filtrar lista"><option value="">Todas</option><option value="si">Activas</option><option value="no">En pausa</option></select>
@@ -100,6 +100,10 @@ const IC_MAPS='<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true
 const IC_WAZE='<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="#33CCFF" d="M12 3c-4.7 0-8.5 3.3-8.5 7.6 0 1.4.4 2.6 1 3.7-.2 1-.7 2-1.5 2.7 1.5.1 2.8-.3 3.8-1 1.3.8 2.8 1.2 5.2 1.2 4.700 0 8.500-3.300 8.500-7.600S16.700 3 12 3z"/><circle cx="9.200" cy="10" r="1.100" fill="#1B1B1B"/><circle cx="14.800" cy="10" r="1.100" fill="#1B1B1B"/><path d="M9 13c1.800 1.400 4.200 1.400 6 0" fill="none" stroke="#1B1B1B" stroke-width="1.200" stroke-linecap="round"/><circle cx="8.500" cy="18.500" r="1.800" fill="#1B1B1B" stroke="#33CCFF" stroke-width="1"/><circle cx="15.500" cy="18.500" r="1.800" fill="#1B1B1B" stroke="#33CCFF" stroke-width="1"/></svg>';
 const goLinks=dir=>{if(!dir)return '';const q=encodeURIComponent(dir+CIUDAD);
  return `<div class=go role=group aria-label="Cómo llegar"><a href="https://www.google.com/maps/search/?api=1&query=${q}" target=_blank rel="noopener noreferrer" aria-label="Abrir ${esc(dir)} en Google Maps">${IC_MAPS}Maps</a><a href="https://waze.com/ul?q=${q}&navigate=yes" target=_blank rel="noopener noreferrer" aria-label="Abrir ${esc(dir)} en Waze">${IC_WAZE}Waze</a></div>`;};
+/* Tabla días × turnos (edición): filas Mañana / Tarde, una casilla por día */
+const tmHtml=(get,p)=>{
+ const cell=(d,t)=>{const on=get(d).includes(t),n=t=='M'?'mañana':'tarde';return `<span class="cell ${on?'on':''}" data-${p}c="${d}:${t}" role=checkbox aria-checked=${on} tabindex=0 aria-label="${DIAS[d]} ${n}" title="${DIAS[d]} · ${n}"></span>`;};
+ return `<div class=tm role=group aria-label="Días y turnos"><span></span>${ORDEN.map(d=>`<span class=th data-${p}h="${d}" title="${DIAS[d]}: marcar o quitar mañana y tarde">${DIAS[d].slice(0,2)}</span>`).join('')}<span class=tl>Mañana</span>${ORDEN.map(d=>cell(d,'M')).join('')}<span class=tl>Tarde</span>${ORDEN.map(d=>cell(d,'T')).join('')}</div>`;};
 function ccard(x){
  const otros=[...new Set((x.cerca||[]).map(String))].filter(t=>t!==String(x.terr));
  return `<article class="cc ${x.activa===false?'off':''}"><b>${esc(x.nombre)}</b><span class=ad>📍 ${esc(x.dir||'Sin dirección')}</span>${goLinks(x.dir)}
@@ -149,7 +153,7 @@ function erow(k,x){
  return `<tr class="erow ${off?'off':''}" data-k=${k} data-id=${x.id}>
  <td class=nm data-label="Nombre"><b>${esc(x.nombre)}</b><small>${sub}</small></td>
  ${h?`<td data-label="Saca grupo"><label class=sw><input type=checkbox data-g aria-label="Puede sacar grupo" ${x.grupo?'checked':''}><i></i></label></td>`:''}
- <td class=dy data-label="Días y turnos">${g?`<div class=tj>`+ORDEN.map(d=>{const v=tAt(x,d);return `<span class="chip dc ${v?'on':''}" data-d=${d} data-s="${TI[v]}" role=button tabindex=0 title="${DIAS[d]}: ${TX[v]} (toca para cambiar)">${DIAS[d].slice(0,2)}</span>`;}).join('')+`</div>`:'<span class=mut>No saca grupo</span>'}</td>
+ <td class=dy data-label="Días y turnos">${g?tmHtml(d=>tAt(x,d),'r'):'<span class=mut>No saca grupo</span>'}</td>
  <td data-label="${h?'Disponible':'Activa'}"><label class=sw><input type=checkbox data-a aria-label="${h?'Disponible':'Activa'}" ${off?'':'checked'}><i></i></label></td>
  <td data-label=""><div class=tj><button class="small" data-edit title="Editar" aria-label="Editar ${esc(x.nombre)}">✎ Editar</button><button class="danger small" data-del title="Eliminar" aria-label="Eliminar ${esc(x.nombre)}">✕</button></div></td></tr>`;
 }
@@ -183,11 +187,13 @@ document.addEventListener('click',e=>{
  if('pp' in ds){const[k,d]=ds.pp.split(':');ES[k].page+=+d;return elist(k);}
  const r=find(e.target);if(!r||!AUTH)return;const [arr,x]=r;
  if(ds.edit!==undefined){openM(e.target.closest('.erow').dataset.k,x);return;}
- if(ds.d!==undefined){const d=+ds.d,dt={};ORDEN.forEach(k=>dt[k]=tAt(x,k));dt[d]=cyc(dt[d]);setDT(x,dt);render();dirty();}
+ if(ds.rc!==undefined||ds.rh!==undefined){const dt={};ORDEN.forEach(k=>dt[k]=tAt(x,k));
+  if(ds.rc!==undefined){const[d,t]=ds.rc.split(':');dt[d]=tog2(dt[d],t);}else{const d=ds.rh;dt[d]=dt[d]=='MT'?'':'MT';}
+  setDT(x,dt);render();dirty();}
  if(ds.del!==undefined&&confirm('¿Eliminar '+x.nombre+'?')){arr.splice(arr.indexOf(x),1);render();dirty();}
 });
 document.addEventListener('change',e=>{const k=e.target.dataset?.ps;if(!k)return;PS[k].size=+e.target.value;PS[k].page=1;cards();});
-document.addEventListener('keydown',e=>{if((e.key=='Enter'||e.key==' ')&&e.target.classList?.contains('chip')){e.preventDefault();e.target.click();}});
+document.addEventListener('keydown',e=>{if((e.key=='Enter'||e.key==' ')&&(e.target.classList?.contains('chip')||e.target.classList?.contains('cell'))){e.preventDefault();e.target.click();}});
 document.addEventListener('change',e=>{const id=e.target.dataset?.ca;if(id===undefined||!AUTH)return;const x=DB.casas.find(c=>c.id==id);if(x){x.activa=e.target.checked;render();dirty();}});
 document.addEventListener('change',e=>{
  const r=find(e.target);if(!r||!AUTH)return;const x=r[1],ds=e.target.dataset;
@@ -199,7 +205,7 @@ document.addEventListener('change',e=>{
 let M=null;
 const RANKS=[['AN','Anciano'],['SM','Siervo ministerial'],['PR','Precursor regular'],['PE','Precursor especial'],['PA','Precursor auxiliar'],['SC','Superintendente de circuito'],['PTJ','Publicador']];
 const PRE3=['PR','PE','PA'];
-const syncDays=()=>document.querySelectorAll('#m_dgrid [data-mdt]').forEach(el=>{const[d,t]=el.dataset.mdt.split(':'),on=M.dt[d].includes(t);el.classList.toggle('on',on);el.setAttribute('aria-pressed',on);});
+const syncDays=()=>document.querySelectorAll('#m_dgrid [data-mc]').forEach(el=>{const[d,t]=el.dataset.mc.split(':'),on=M.dt[d].includes(t);el.classList.toggle('on',on);el.setAttribute('aria-checked',on);});
 const mChip=(a,v,l,on)=>`<span class="chip ${on?'on':''}" data-${a}="${v}" role=button tabindex=0 aria-pressed=${on}>${l}</span>`;
 function openM(k,x){
  const h=k=='hermanos';
@@ -207,9 +213,9 @@ function openM(k,x){
  if(!M.rank.size)M.rank.add('PTJ');
  const grupo=x?!!x.grupo:true,terrs=(x?.cerca?.length?x.cerca:[x?.terr].filter(Boolean)).join(', ');
  const sched=`<div id=m_sched ${h&&!grupo?'hidden':''}><div class=field><label>Días y turnos ${h?'en que saca grupo':'disponibles'}</label>
-  <div class=dgrid id=m_dgrid>${ORDEN.map(d=>`<div class=drow><span class=dn>${DIAS[d]}</span>${mChip('mdt',d+':M','☀ Mañana',M.dt[d].includes('M'))}${mChip('mdt',d+':T','🌙 Tarde',M.dt[d].includes('T'))}</div>`).join('')}</div>
-  <div class=fl><span class=lb>Rápido</span><span class=chip data-mp="MT" role=button tabindex=0>Todos ☀🌙</span><span class=chip data-mp="M" role=button tabindex=0>Todas las mañanas</span><span class=chip data-mp="T" role=button tabindex=0>Todas las tardes</span><span class=chip data-mp="" role=button tabindex=0>Limpiar</span></div>
-  <p class=hint style="margin:4px 0 0">Enciende solo los turnos en que sí está disponible. Un día sin turnos queda como no disponible.</p></div></div>`;
+  <div id=m_dgrid>${tmHtml(d=>M.dt[d],'m')}</div>
+  <div class=fl style="margin-top:10px"><span class=chip data-mp="MT" role=button tabindex=0>Mañana y tarde, todos los días</span><span class=chip data-mp="M" role=button tabindex=0>Solo mañanas</span><span class=chip data-mp="T" role=button tabindex=0>Solo tardes</span><span class=chip data-mp="" role=button tabindex=0>Limpiar</span></div>
+  <p class=hint style="margin:4px 0 0">Marca los turnos en que sí está disponible. Toca el día (Lu, Ma…) para marcar o quitar mañana y tarde juntas.</p></div></div>`;
  $('#dlgE').innerHTML=`<h3>${x?'Editar':'Añadir'} ${h?'hermano':'casa'}</h3>
  <div class=field><label for=m_nombre>${h?'Nombre':'Familia / dueño de la casa'}</label><input type=text id=m_nombre value="${esc(x?.nombre||'')}" placeholder="${h?'Nombre y apellido':'Fam. Apellido'}" autocomplete=off></div>
  ${h?`<div class=field><label>Rango</label><div class=fl id=m_rank>${RANKS.map(([c,l])=>mChip('mr',c,l,M.rank.has(c))).join('')}</div></div>
@@ -249,7 +255,8 @@ $('#dlgE').addEventListener('click',e=>{
  if(e.target==$('#dlgE'))return $('#dlgE').close();
  const ds=e.target.dataset||{};if(!M)return;
  const tog=(el,on)=>{el.classList.toggle('on',on);el.setAttribute('aria-pressed',on);};
- if(ds.mdt!==undefined){const[d,t]=ds.mdt.split(':');M.dt[d]=tog2(M.dt[d],t);tog(e.target,M.dt[d].includes(t));}
+ if(ds.mc!==undefined){const[d,t]=ds.mc.split(':');M.dt[d]=tog2(M.dt[d],t);syncDays();}
+ if(ds.mh!==undefined){const d=ds.mh;M.dt[d]=M.dt[d]=='MT'?'':'MT';syncDays();}
  if(ds.mp!==undefined){ORDEN.forEach(d=>M.dt[d]=ds.mp);syncDays();}
  if(ds.mr!==undefined){const c=ds.mr;
   if(c=='PTJ')M.rank=new Set(['PTJ']);
