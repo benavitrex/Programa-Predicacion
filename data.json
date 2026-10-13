@@ -10,13 +10,11 @@
         12,
         15
       ],
-      "turno": "M",
-      "dias": [
-        1,
-        5
-      ],
+      "turno": "MT",
+      "dias": [],
       "activa": true,
-      "gr": "1"
+      "gr": "1",
+      "dt": {}
     },
     {
       "id": "c1",
@@ -28,13 +26,11 @@
         18,
         20
       ],
-      "turno": "M",
-      "dias": [
-        3,
-        0
-      ],
+      "turno": "MT",
+      "dias": [],
       "activa": true,
-      "gr": "1"
+      "gr": "1",
+      "dt": {}
     },
     {
       "id": "c2",
@@ -47,13 +43,11 @@
         5,
         6
       ],
-      "turno": "M",
-      "dias": [
-        2,
-        0
-      ],
+      "turno": "MT",
+      "dias": [],
       "activa": true,
-      "gr": "4"
+      "gr": "4",
+      "dt": {}
     },
     {
       "id": "c3",
@@ -65,12 +59,11 @@
         5,
         16
       ],
-      "turno": "M",
-      "dias": [
-        5
-      ],
+      "turno": "MT",
+      "dias": [],
       "activa": true,
-      "gr": "1"
+      "gr": "1",
+      "dt": {}
     },
     {
       "id": "c4",
@@ -81,13 +74,11 @@
         2,
         3
       ],
-      "turno": "M",
-      "dias": [
-        1,
-        6
-      ],
+      "turno": "MT",
+      "dias": [],
       "activa": true,
-      "gr": "2"
+      "gr": "2",
+      "dt": {}
     },
     {
       "id": "c5",
@@ -99,13 +90,11 @@
         10,
         8
       ],
-      "turno": "M",
-      "dias": [
-        3,
-        6
-      ],
+      "turno": "MT",
+      "dias": [],
       "activa": true,
-      "gr": "5"
+      "gr": "5",
+      "dt": {}
     },
     {
       "id": "c6",
@@ -118,13 +107,11 @@
         4,
         21
       ],
-      "turno": "M",
-      "dias": [
-        3,
-        6
-      ],
+      "turno": "MT",
+      "dias": [],
       "activa": true,
-      "gr": "4"
+      "gr": "4",
+      "dt": {}
     },
     {
       "id": "c7",
@@ -135,13 +122,11 @@
         14,
         15
       ],
-      "turno": "M",
-      "dias": [
-        3,
-        0
-      ],
+      "turno": "MT",
+      "dias": [],
       "activa": true,
-      "gr": "3"
+      "gr": "3",
+      "dt": {}
     },
     {
       "id": "c8",
@@ -152,13 +137,11 @@
         3,
         2
       ],
-      "turno": "M",
-      "dias": [
-        3,
-        6
-      ],
+      "turno": "MT",
+      "dias": [],
       "activa": true,
-      "gr": "5"
+      "gr": "5",
+      "dt": {}
     },
     {
       "id": "c9",
@@ -171,13 +154,11 @@
         9,
         10
       ],
-      "turno": "M",
-      "dias": [
-        0,
-        4
-      ],
+      "turno": "MT",
+      "dias": [],
       "activa": true,
-      "gr": "3"
+      "gr": "3",
+      "dt": {}
     },
     {
       "id": "c10",
@@ -189,13 +170,11 @@
         21,
         20
       ],
-      "turno": "M",
-      "dias": [
-        1,
-        5
-      ],
+      "turno": "MT",
+      "dias": [],
       "activa": true,
-      "gr": "1"
+      "gr": "1",
+      "dt": {}
     },
     {
       "id": "c11",
@@ -206,13 +185,11 @@
         11,
         10
       ],
-      "turno": "M",
-      "dias": [
-        2,
-        6
-      ],
+      "turno": "MT",
+      "dias": [],
       "activa": true,
-      "gr": ""
+      "gr": "",
+      "dt": {}
     },
     {
       "id": "c12",
@@ -224,13 +201,11 @@
         21,
         1
       ],
-      "turno": "M",
-      "dias": [
-        6,
-        4
-      ],
+      "turno": "MT",
+      "dias": [],
       "activa": true,
-      "gr": "1"
+      "gr": "1",
+      "dt": {}
     },
     {
       "id": "c13",
@@ -251,12 +226,11 @@
       "cerca": [
         13
       ],
-      "turno": "M",
-      "dias": [
-        6
-      ],
+      "turno": "MT",
+      "dias": [],
       "activa": true,
-      "gr": ""
+      "gr": "",
+      "dt": {}
     },
     {
       "id": "c15",
@@ -266,13 +240,11 @@
       "cerca": [
         12
       ],
-      "turno": "M",
-      "dias": [
-        1,
-        6
-      ],
+      "turno": "MT",
+      "dias": [],
       "activa": true,
-      "gr": ""
+      "gr": "",
+      "dt": {}
     }
   ],
   "hermanos": [
