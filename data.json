@@ -367,19 +367,24 @@
         5,
         1
       ],
-      "activa": true
+      "activa": false
     },
     {
       "id": "h23",
       "nombre": "Jorge Benavides",
       "tarea": "AN",
       "gr": "3",
-      "turno": "M",
+      "turno": "MT",
       "grupo": true,
       "dias": [
+        3,
         0
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "0": "M",
+        "3": "T"
+      }
     },
     {
       "id": "h24",
@@ -390,9 +395,13 @@
       "grupo": true,
       "dias": [
         1,
-        3
+        5
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "1": "M",
+        "5": "M"
+      }
     },
     {
       "id": "h36",
@@ -413,9 +422,13 @@
       "grupo": true,
       "dias": [
         2,
-        4
+        5
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "2": "M",
+        "5": "M"
+      }
     },
     {
       "id": "h46",
@@ -435,9 +448,12 @@
       "turno": "M",
       "grupo": true,
       "dias": [
-        6
+        0
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "0": "M"
+      }
     },
     {
       "id": "h48",
@@ -447,9 +463,12 @@
       "turno": "M",
       "grupo": true,
       "dias": [
-        0
+        6
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "6": "M"
+      }
     },
     {
       "id": "h49",
@@ -460,9 +479,13 @@
       "grupo": true,
       "dias": [
         2,
-        0
+        4
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "2": "M",
+        "4": "M"
+      }
     },
     {
       "id": "h54",
@@ -474,7 +497,10 @@
       "dias": [
         3
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "3": "T"
+      }
     },
     {
       "id": "h55",
@@ -491,25 +517,38 @@
       "nombre": "Claudio Correa",
       "tarea": "AN/PE",
       "gr": "5",
-      "turno": "M",
+      "turno": "MT",
       "grupo": true,
       "dias": [
         1,
-        4
+        4,
+        5
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "1": "M",
+        "4": "M",
+        "5": "T"
+      }
     },
     {
       "id": "h61",
       "nombre": "Miguel Meneses",
       "tarea": "SM",
       "gr": "4",
-      "turno": "M",
+      "turno": "MT",
       "grupo": true,
       "dias": [
-        4
+        3,
+        4,
+        6
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "3": "T",
+        "4": "M",
+        "6": "M"
+      }
     },
     {
       "id": "h63",
@@ -531,9 +570,12 @@
       "turno": "M",
       "grupo": true,
       "dias": [
-        6
+        0
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "0": "M"
+      }
     },
     {
       "id": "h68",
@@ -599,10 +641,14 @@
       "turno": "M",
       "grupo": true,
       "dias": [
-        4,
-        1
+        2,
+        4
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "2": "M",
+        "4": "M"
+      }
     },
     {
       "id": "h86",
@@ -612,23 +658,33 @@
       "turno": "M",
       "grupo": true,
       "dias": [
-        2,
+        3,
         5
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "3": "M",
+        "5": "M"
+      }
     },
     {
       "id": "h88",
       "nombre": "Cristian Da Silva",
       "tarea": "AN/PR",
       "gr": "1",
-      "turno": "M",
+      "turno": "MT",
       "grupo": true,
       "dias": [
         2,
+        4,
         5
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "2": "M",
+        "4": "M",
+        "5": "T"
+      }
     },
     {
       "id": "h90",
@@ -640,7 +696,10 @@
       "dias": [
         6
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "6": "M"
+      }
     },
     {
       "id": "h91",
@@ -677,13 +736,17 @@
       "nombre": "Andrés Valenzuela",
       "tarea": "PTJ",
       "gr": "4",
-      "turno": "M",
+      "turno": "T",
       "grupo": true,
       "dias": [
         3,
         5
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "3": "T",
+        "5": "T"
+      }
     },
     {
       "id": "h99",
@@ -693,9 +756,12 @@
       "turno": "M",
       "grupo": true,
       "dias": [
-        0
+        6
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "6": "M"
+      }
     },
     {
       "id": "h103",
@@ -712,13 +778,19 @@
       "nombre": "Felipe Gonzalez",
       "tarea": "AN/PR",
       "gr": "4",
-      "turno": "M",
+      "turno": "MT",
       "grupo": true,
       "dias": [
+        1,
         3,
         5
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "1": "M",
+        "3": "T",
+        "5": "M"
+      }
     },
     {
       "id": "h107",
