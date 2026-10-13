@@ -421,11 +421,13 @@
       "turno": "M",
       "grupo": true,
       "dias": [
+        1,
         2,
         5
       ],
       "activa": true,
       "dt": {
+        "1": "M",
         "2": "M",
         "5": "M"
       }
