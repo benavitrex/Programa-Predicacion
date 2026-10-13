@@ -170,11 +170,15 @@
         21,
         20
       ],
-      "turno": "MT",
-      "dias": [],
+      "turno": "M",
+      "dias": [
+        1
+      ],
       "activa": true,
       "gr": "1",
-      "dt": {}
+      "dt": {
+        "1": "M"
+      }
     },
     {
       "id": "c11",
@@ -245,6 +249,37 @@
       "activa": true,
       "gr": "",
       "dt": {}
+    },
+    {
+      "id": "wdy4jqe",
+      "nombre": "Fam. Gonzalez",
+      "dir": "Hualle 22, Placilla, Valparaiso",
+      "terr": "15",
+      "cerca": [
+        15,
+        14,
+        20
+      ],
+      "dt": {
+        "0": "MT",
+        "1": "MT",
+        "2": "MT",
+        "3": "MT",
+        "4": "MT",
+        "5": "MT",
+        "6": "MT"
+      },
+      "dias": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        0
+      ],
+      "turno": "MT",
+      "activa": true
     }
   ],
   "hermanos": [
