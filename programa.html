@@ -20,8 +20,7 @@ td b{font-weight:600}.cap{display:block;font-size:12px;color:var(--soft);margin-
 td select,td input.ed{width:100%}td input.ed.hora{width:92px;font:600 14px var(--mono)}td input.ed.terr{width:84px;text-align:center;font:600 13px var(--mono)}
 td .tag{font-size:11.5px}
 .fer{display:block;font:italic 500 11px/1.2 Inter,sans-serif;color:var(--gold);margin-top:4px;letter-spacing:.01em}
-.gsb{display:inline-flex;align-items:center;gap:7px;width:max-content;margin-top:7px;padding:3px 9px 3px 8px;border-radius:99px;border:1px solid color-mix(in srgb,var(--brand) 35%,var(--line));background:var(--brand-bg);color:var(--brand);font:600 9.5px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
-.gsb::before{content:'';flex:none;width:3px;height:3px;border-radius:50%;background:currentColor;margin-right:8px;box-shadow:5px 0 currentColor,10px 0 currentColor}
+.gsl{display:block;font:italic 500 11px/1.2 Inter,sans-serif;color:var(--brand);margin-top:4px;letter-spacing:.01em}
 td.hr .cap{font:600 10.5px var(--mono);letter-spacing:.06em;text-transform:uppercase}
 tr.more td{border-bottom-color:transparent;padding-bottom:4px}
 tr.cont td{padding-top:4px}
@@ -58,26 +57,6 @@ tr.cont td{padding-top:4px}
  .mut{color:#555}
 }
 
-.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin:12px 0}
-.kp>div{background:var(--fill);border-radius:10px;padding:10px 12px}.kp b{display:block;font:600 26px/1.1 var(--serif)}.kp span{font:600 10px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
-.kp .ok b{color:var(--brand)}.kp .no b{color:var(--bad)}.kp .pe b{color:var(--gold)}
-.pie{display:flex;flex-wrap:wrap;gap:20px;align-items:center;margin:8px 0}.pie svg{width:160px;height:160px;flex:none;border-radius:50%;background:var(--fill)}
-.lgd{display:flex;flex-direction:column;gap:7px;font-size:13px}.lgd i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}
-.sb{display:flex;flex-wrap:wrap;gap:6px}.sb button.on-ok{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}.sb button.on-no{background:var(--bad);border-color:var(--bad);color:#fff}
-.rpl{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.rpl select{max-width:220px}.rpl input{flex:1 1 140px}
-.cols3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:12px}.cols3>div{background:var(--fill);border-radius:10px;padding:10px 12px}.cols3 h3{margin:0 0 8px}
-.pl{display:inline-flex;gap:6px;align-items:center;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600;border:1px solid var(--line);background:var(--card);cursor:pointer;margin:0 4px 5px 0}.pl em{font:600 11px var(--mono);font-style:normal;color:var(--soft)}
-.pl.ok{border-color:var(--brand);color:var(--brand)}.pl.no{border-color:var(--bad);color:var(--bad)}.pl.pe{border-color:var(--gold);color:var(--gold)}
-.mbar{display:grid;grid-template-columns:120px 1fr 90px;gap:10px;align-items:center;margin:7px 0;font-size:12.5px;cursor:pointer;text-transform:capitalize}.mbar>i{display:block;height:10px;border-radius:99px;background:var(--bad-bg);overflow:hidden}.mbar>i>u{display:block;height:100%;background:var(--brand)}.mbar small{text-transform:none}
-.mbar{padding:7px 10px;border-radius:10px;border:1px solid transparent}.mbar:hover{background:var(--fill)}.mbar.sel{background:var(--fill);border-color:var(--brand)}.mbar.sel>span:first-child{font-weight:700}
-.edet{margin-top:18px;border-top:1px solid var(--line);padding-top:16px}
-.eh{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;margin-bottom:14px}.eh .big{font:600 42px/1 var(--serif)}.eh .lb{display:block;font:600 10px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin-top:5px}
-.cnt{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;font-weight:600}.cnt .ok{color:var(--brand)}.cnt .no{color:var(--bad)}.cnt .pe{color:var(--gold)}
-.cols2{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}.rk{background:var(--fill);border-radius:12px;padding:12px 14px}.rk h3{margin:0 0 6px}
-.rkr{display:grid;grid-template-columns:22px 1fr auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);cursor:pointer;font-size:13.5px}.rkr:last-of-type{border-bottom:0}.rkr .n{font:600 11px var(--mono);color:var(--soft)}.rkr .v{font-weight:700;white-space:nowrap}.rkr .v.ok{color:var(--brand)}.rkr .v.no{color:var(--bad)}.rkr em{font-style:normal;font-weight:400;color:var(--soft);font-size:11.5px}
-.eact{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.dayrow{display:flex;flex-wrap:wrap;gap:2px 12px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px}.dayrow:last-child{border-bottom:0}.dayrow b{min-width:120px;text-transform:capitalize}
-.tag.bad{background:var(--bad-bg);color:var(--bad)}.tag.gold{background:var(--gold-bg);color:var(--gold)}
 </style></head><body>
 <main>
 <div class="hero noprint"><span class="eyebrow">Predicación</span><h1>Programa <em>Predicación</em></h1><p class="sub">Elige el mes para ver el programa. Si tienes acceso de edición, puedes generarlo y ajustarlo.</p></div>
@@ -90,24 +69,14 @@ tr.cont td{padding-top:4px}
   <button type="button" id="pm" class="ghost">🖨️ Imprimir mes</button>
  </form>
  <p class="hint" id="gh" hidden style="margin:0"><b>Generar</b>: agrega las salidas que falten (por ejemplo, tras marcar la tarde en otro día) sin tocar lo que ya editaste. <b>Regenerar todo el mes</b>: borra el programa en pantalla y lo arma de nuevo desde cero.</p>
- <details id="hd" hidden><summary>Horarios por día (hora y salidas por horario)</summary><p class="hint" style="margin:6px 0 0">La tarde se puede marcar en cualquier día. Por defecto el programa solo la genera miércoles y viernes; en cualquier otro día puedes añadirla desde el programa con «+ Tarde».</p><div id="hor" class="hg"></div>
+ <details id="hd" hidden><summary>Horarios por día (hora y salidas por horario)</summary><p class="hint" style="margin:6px 0 0">La tarde se puede marcar en cualquier día. Por defecto el programa solo la genera miércoles y viernes; en cualquier otro día puedes añadirla desde el programa con «+ Tarde». El generador respeta los días y turnos de cada hermano y casa (se editan en Inicio).</p><div id="hor" class="hg"></div>
   <div class="hg" style="margin-top:14px"><div><b>Sábados por grupos</b><p class="hint" style="margin:4px 0 8px">Esos sábados se sale por grupo (Grupo 1 al 5, cada uno con su encargado y su casa). Se aplican al generar; para cambiar un mes ya armado usa «Regenerar todo el mes» o el botón de cada sábado.</p><div id="gsc" style="display:flex;flex-wrap:wrap;gap:6px 14px"></div></div>
   <div><b>Feriados extra</b><p class="hint" style="margin:4px 0 8px">Los feriados de Chile ya vienen incluidos. Si falta alguno (elecciones, feriado especial), escribe la fecha AAAA-MM-DD separadas por coma.</p><input id="fx" placeholder="2026-11-16, 2026-12-31" style="width:100%"></div></div></details>
 </section>
 <div id="mh" class="mh noprint"></div>
 <div id="tabs" class="fl noprint"></div>
 <div id="weeks"></div>
-<section class="card noprint"><span class="eyebrow">Rotación</span><h2>Historial</h2><p class="hint">Archivo de meses guardados. Abre uno para revisarlo; el mes anterior se usa para no repetir asignaciones.</p><div id="hist"></div></section>
-<section class="card noprint" id="seg"><span class="eyebrow">Seguimiento</span><h2>Cumplimiento de asignaciones</h2><p class="hint">Elige un mes y una semana, y marca si cada hermano cumplió su salida o no. Si falló, puedes indicar quién lo reemplazó. Al terminar pulsa «Guardar seguimiento».</p>
- <div id="smo" class="fl"></div>
- <div id="swk" class="fl" style="margin-top:8px"></div>
- <div id="sbar" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 12px"></div>
- <div id="stb"></div></section>
-<section class="card noprint" id="est"><span class="eyebrow">Estadísticas</span><h2>Cumplimiento por mes</h2><p class="hint">Toca un mes para ver quiénes cumplieron más y quiénes fallaron más.</p>
- <div id="e_mes"></div><div id="e_det"></div></section>
-<section class="card noprint" id="fic"><span class="eyebrow">Ficha</span><h2>Ficha por hermano</h2><p class="hint">Escribe o elige un nombre para ver su historial de cumplimiento, útil cuando alguien reclama que no lo pusieron en el programa.</p>
- <form onsubmit="return false"><input id="fbIn" list="fbList" placeholder="Nombre del hermano…" style="flex:1 1 240px"><datalist id="fbList"></datalist><button type="button" id="fbClr" class="ghost">Limpiar</button></form>
- <div class="grid" id="fres"></div></section>
+<section class="card noprint"><span class="eyebrow">Rotación</span><h2>Historial</h2><p class="hint">Meses guardados. Abre uno para revisarlo o editarlo; el mes anterior se usa para no repetir asignaciones.</p><div id="hist"></div></section>
 </main>
 
 <div class="edit-bar noprint" id="editBar" hidden role="toolbar" aria-label="Edición">
@@ -155,7 +124,7 @@ const feriado=f=>ferYear(+f.slice(0,4))[f]||((DB.feriados||[]).includes(f)?'Feri
 /* ---------- Sábados por grupos ---------- */
 const GR_N=5,gsN=()=>Array.isArray(DB.gsab)?DB.gsab:[1,3];
 const rkL=x=>{const t=(x.tarea||'').toUpperCase().split('/').map(v=>v.trim());return t.includes('AN')?0:t.includes('SM')?1:2;};
-const dabbr=a=>ORDEN.filter(d=>a.includes(d)).map(d=>DIAS[d].slice(0,2)).join(' ');
+const dabbrT=x=>ORDEN.filter(d=>tAt(x,d)).map(d=>DIAS[d].slice(0,2)+TI[tAt(x,d)]).join(' ');
 function usage(ex){const c={},h={};for(const[k,v]of Object.entries(hist())){if(k==ex)continue;for(const r of v.rows){if(r.c)c[r.c]=(c[r.c]||0)+1;if(r.h)h[r.h]=(h[r.h]||0)+1;}}return[c,h];}
 function counts(){const[c,h]=usage(MES);ROWS.forEach(r=>{if(r.c)c[r.c]=(c[r.c]||0)+1;if(r.h)h[r.h]=(h[r.h]||0)+1;});return[c,h];}
 const best=(a,sc,l)=>a.map(x=>[x,sc(x)]).sort((p,q)=>p[1]-q[1]||(l[p[0].id]??-1)-(l[q[0].id]??-1))[0]?.[0];
@@ -182,8 +151,8 @@ function gen(keep,only,force){
    const hm=horas.find(x=>x<'14:00')||'10:30',tx=new Set(od.filter(r=>r.gs).map(r=>r.terr));
    for(let g=1;g<=GR_N;g++){
     if(od.some(r=>r.gs&&+r.g==g))continue;
-    const c=best(DB.casas.filter(x=>x.activa!==false&&x.dias.includes(dow)&&turnoOk(x.turno,'M')&&!cUsed.has(x.id)),x=>(uC[x.id]||0)*4+(x.gr==g?-10:x.gr?3:0)+(lcd.has(x.id+'|'+dow)?6:lc.has(x.id)?2:0),lC);
-    const h=best(DB.hermanos.filter(x=>x.grupo&&x.activa!==false&&x.gr==g&&x.dias.includes(dow)&&turnoOk(x.turno,'M')&&!hUsed.has(x.id)),x=>(uH[x.id]||0)*3+rkL(x)*2+(lhd.has(x.id+'|'+dow)?6:0),lH);
+    const c=best(DB.casas.filter(x=>x.activa!==false&&avail(x,dow,'M')&&!cUsed.has(x.id)),x=>(uC[x.id]||0)*4+(x.gr==g?-10:x.gr?3:0)+(lcd.has(x.id+'|'+dow)?6:lc.has(x.id)?2:0),lC);
+    const h=best(DB.hermanos.filter(x=>x.grupo&&x.activa!==false&&x.gr==g&&avail(x,dow,'M')&&!hUsed.has(x.id)),x=>(uH[x.id]||0)*3+rkL(x)*2+(lhd.has(x.id+'|'+dow)?6:0),lH);
     if(c){cUsed.add(c.id);uC[c.id]=(uC[c.id]||0)+1;lC[c.id]=i;}
     if(h){hUsed.add(h.id);uH[h.id]=(uH[h.id]||0)+1;lH[h.id]=i;}
     ROWS.push({id:uid(),f:iso(d),hora:hm,g,gs:1,c:c?.id||'',h:h?.id||'',terr:c?pickT(c,tx):''});
@@ -194,8 +163,8 @@ function gen(keep,only,force){
    const t=hora<'14:00'?'M':'T';
    for(let g=1;g<=n;g++){
     if(od.some(r=>r.hora==hora&&(+r.g||0)==(n>1?g:0)))continue;
-    const c=best(DB.casas.filter(x=>x.activa!==false&&x.dias.includes(dow)&&turnoOk(x.turno,t)&&!cUsed.has(x.id)),x=>(uC[x.id]||0)*4+(lcd.has(x.id+'|'+dow)?6:lc.has(x.id)?2:0),lC);
-    const h=best(DB.hermanos.filter(x=>x.grupo&&x.activa!==false&&x.dias.includes(dow)&&turnoOk(x.turno,t)&&!hUsed.has(x.id)),x=>(uH[x.id]||0)*4+(lhd.has(x.id+'|'+dow)?6:0)+(c&&lp.has(c.id+'|'+x.id)?8:0),lH);
+    const c=best(DB.casas.filter(x=>x.activa!==false&&avail(x,dow,t)&&!cUsed.has(x.id)),x=>(uC[x.id]||0)*4+(lcd.has(x.id+'|'+dow)?6:lc.has(x.id)?2:0),lC);
+    const h=best(DB.hermanos.filter(x=>x.grupo&&x.activa!==false&&avail(x,dow,t)&&!hUsed.has(x.id)),x=>(uH[x.id]||0)*4+(lhd.has(x.id+'|'+dow)?6:0)+(c&&lp.has(c.id+'|'+x.id)?8:0),lH);
     if(c){cUsed.add(c.id);uC[c.id]=(uC[c.id]||0)+1;lC[c.id]=i;}
     if(h){hUsed.add(h.id);uH[h.id]=(uH[h.id]||0)+1;lH[h.id]=i;}
     ROWS.push({id:uid(),f:iso(d),hora,g:n>1?g:0,c:c?.id||'',h:h?.id||'',terr:c?pickT(c):''});
@@ -206,7 +175,7 @@ function gen(keep,only,force){
  if(!keep||nn)chg(keep?nn+' salida(s) agregada(s); lo demás quedó igual. Sin guardar.':'Programa regenerado desde cero, sin guardar. Revísalo y edita lo que haga falta.');
  else $('#st').textContent='No falta ninguna salida según los horarios.';
 }
-function openMonth(k){MES=k;$('#mes').value=k;ROWS=hist()[k].rows.map(r=>({id:r.id||uid(),f:r.f,hora:r.hora,g:r.g,gs:r.gs,c:r.c,h:r.h,terr:r.terr,st:r.st||'',rp:r.rp||'',nt:r.nt||''}));cur=0;render();clean('Mes guardado en el historial.');}
+function openMonth(k){MES=k;$('#mes').value=k;ROWS=hist()[k].rows.map(r=>({id:r.id||uid(),f:r.f,hora:r.hora,g:r.g,gs:r.gs,c:r.c,h:r.h,terr:r.terr}));cur=0;render();clean('Mes guardado en el historial.');}
 function emptyMonth(){ROWS=[];cur=0;render();clean('');}
 
 const lab=(k,s)=>{const[y,m]=MES.split('-').map(Number),e=k==3?new Date(y,m,0).getDate():k*7+7;return (k*7+1)+' al '+e+(s?'':' de '+new Date(y,m-1,1).toLocaleDateString('es-CL',{month:'long'}));};
@@ -223,15 +192,15 @@ function weekHtml(k,i,uC,uH){
   const d=P(r.f),dow=d.getDay(),t=r.hora<'14:00'?'M':'T',c=DB.casas.find(x=>x.id==r.c),h=DB.hermanos.find(x=>x.id==r.h);
   const first=r.f!=pd;pd=r.f;const nx=rows[ix+1]?.f==r.f,fer=feriado(r.f);
   const day=`<span class=dl><span class=dn>${String(d.getDate()).padStart(2,'0')}</span><span class=dw>${d.toLocaleDateString('es-CL',{weekday:'long'})}</span>${fer?`<span class=fer title="${esc(fer)}">(festivo)</span>`:''}</span>`;
-  const gsTag=first&&r.gs?'<span class="gsb">Por grupos</span>':'';
+  const gsTag=first&&r.gs?'<span class=gsl>(por grupos)</span>':'';
   const addPm=EM&&first&&!hasPm.has(r.f)?`<br><button class="mini noprint" data-pm="${r.f}" title="Añadir salida en la tarde">+ Tarde</button>`:'';
   const gsBtn=EM&&first&&dow==6?`<br><button class="mini noprint" data-tg="${r.f}" data-gm="${r.gs?'n':'g'}" title="${r.gs?'Cambiar este sábado a una sola salida':'Cambiar este sábado a salida por grupos'}">${r.gs?'Salida normal':'Por grupos'}</button>`:'';
   let hc='',cc='',tc='',ac='';
   hc=`<span class=tx><b class=hv>${esc(r.hora)}</b></span>${EM?`<input class="ed hora" data-r=${r.id} data-f=hora value="${esc(r.hora)}">`:''}${r.g?`<span class=cap>Grupo ${r.g}</span>`:''}`;
   if(EM){
-   const okC=DB.casas.filter(x=>x.activa!==false&&x.dias.includes(dow)&&turnoOk(x.turno,t)),okH0=DB.hermanos.filter(x=>x.grupo&&x.activa!==false&&x.dias.includes(dow)&&turnoOk(x.turno,t)),okH=r.gs&&okH0.some(x=>x.gr==r.g)?okH0.filter(x=>x.gr==r.g):okH0;
-   ac=`<span class=tx>${h?`<b>${esc(h.nombre)}</b>`:'<span class=mut>Sin encargado</span>'}</span>${sel('h',r,DB.hermanos.filter(x=>x.grupo),okH,uH,null,r.h)}<span class="cap ed">${h?'Saca grupo: '+dabbr(h.dias):'Sin encargado disponible'}</span>`;
-   cc=`<span class=tx>${c?`<b>${esc(c.nombre)}</b><span class=cap>${esc(c.dir)}</span>`:'<span class=mut>Sin casa</span>'}</span>${sel('c',r,DB.casas.filter(x=>x.activa!==false||x.id==r.c),okC,uC,lastC,r.c)}<span class="cap ed">${c?(c.activa===false?'⚠ Casa en pausa · ':'')+esc(c.dir)+' · Disp.: '+dabbr(c.dias):'Sin casa disponible'}</span>`;
+   const okC=DB.casas.filter(x=>x.activa!==false&&avail(x,dow,t)),okH0=DB.hermanos.filter(x=>x.grupo&&x.activa!==false&&avail(x,dow,t)),okH=r.gs&&okH0.some(x=>x.gr==r.g)?okH0.filter(x=>x.gr==r.g):okH0;
+   ac=`<span class=tx>${h?`<b>${esc(h.nombre)}</b>`:'<span class=mut>Sin encargado</span>'}</span>${sel('h',r,DB.hermanos.filter(x=>x.grupo),okH,uH,null,r.h)}<span class="cap ed">${h?'Saca grupo: '+dabbrT(h):'Sin encargado disponible'}</span>`;
+   cc=`<span class=tx>${c?`<b>${esc(c.nombre)}</b><span class=cap>${esc(c.dir)}</span>`:'<span class=mut>Sin casa</span>'}</span>${sel('c',r,DB.casas.filter(x=>x.activa!==false||x.id==r.c),okC,uC,lastC,r.c)}<span class="cap ed">${c?(c.activa===false?'⚠ Casa en pausa · ':'')+esc(c.dir)+' · Disp.: '+dabbrT(c):'Sin casa disponible'}</span>`;
    tc=`<span class=tx>${r.terr?`<span class="tag active">${esc(r.terr)}</span>`:'<span class=mut>—</span>'}</span><input class="ed terr" data-r=${r.id} data-f=terr value="${esc(r.terr)}">`;
   }else{
    ac=`<span class=tx>${h?`<b>${esc(h.nombre)}</b>`:'<span class=mut>Sin encargado</span>'}</span>`;
@@ -252,7 +221,6 @@ function render(){
  $('#weeks').innerHTML=has?WK.map((k,i)=>weekHtml(k,i,uC,uH)).join(''):`<section class="card"><p class="hint" style="margin:0">${!MES?'Elige un mes para ver el programa.':EM?'No hay salidas con los horarios actuales.':'Aún no hay un programa guardado para este mes.'}</p></section>`;
  const ks=Object.keys(hist()).sort().reverse();
  $('#hist').innerHTML=ks.length?`<div class="cg arch">${ks.map(k=>{const v=hist()[k];return `<article class=cc><span class=eyebrow style="margin:0">${k.slice(0,4)}</span><b style="text-transform:capitalize;font-family:var(--serif);font-size:18px">${mname(k)}</b><small>${v.rows.length} salidas · guardado el ${new Date(v.guardado||Date.now()).toLocaleDateString('es-CL')}</small><div style="display:flex;gap:6px"><button data-open=${k} class=pri>Abrir</button>${EM?`<button data-hd=${k} class=danger title="Eliminar del archivo">✕</button>`:''}</div></article>`;}).join('')}</div>`:'<small>Aún no hay meses guardados.</small>';
- segAll();
 }
 function toggleGS(f,mode){
  ROWS=mode=='n'?ROWS.filter(r=>!(r.f==f&&r.gs)):ROWS.filter(r=>!(r.f==f&&r.hora<'14:00'));
@@ -266,8 +234,8 @@ $('#gsc').onchange=e=>{const n=+e.target.dataset.gsn;if(!n)return;const st=new S
 $('#fx').onchange=e=>{DB.feriados=e.target.value.match(/\d{4}-\d{2}-\d{2}/g)||[];cfgUi();render();chg();};
 function addPm(f){
  const dow=P(f).getDay(),[uC,uH]=counts(),used=ROWS.filter(r=>r.f==f&&r.hora=='18:00'),uc=new Set(used.map(r=>r.c)),uh=new Set(used.map(r=>r.h));
- const c=best(DB.casas.filter(x=>x.activa!==false&&x.dias.includes(dow)&&turnoOk(x.turno,'T')&&!uc.has(x.id)),x=>uC[x.id]||0,{});
- const h=best(DB.hermanos.filter(x=>x.grupo&&x.activa!==false&&x.dias.includes(dow)&&turnoOk(x.turno,'T')&&!uh.has(x.id)),x=>uH[x.id]||0,{});
+ const c=best(DB.casas.filter(x=>x.activa!==false&&avail(x,dow,'T')&&!uc.has(x.id)),x=>uC[x.id]||0,{});
+ const h=best(DB.hermanos.filter(x=>x.grupo&&x.activa!==false&&avail(x,dow,'T')&&!uh.has(x.id)),x=>uH[x.id]||0,{});
  const tc={};ROWS.forEach(r=>{if(r.terr)tc[r.terr]=(tc[r.terr]||0)+1;});
  const terr=c?(c.cerca?.length?c.cerca:[c.terr]).map(String).sort((x,y)=>(tc[x]||0)-(tc[y]||0))[0]:'';
  ROWS.push({id:uid(),f,hora:'18:00',g:0,c:c?.id||'',h:h?.id||'',terr});
@@ -290,7 +258,7 @@ document.addEventListener('click',async e=>{const d=e.target.dataset||{};
 addEventListener('afterprint',()=>document.body.classList.remove('one'));
 $('#pm').onclick=()=>print();
 $('#sv').onclick=async()=>{if(!AUTH)return;if(!ROWS.length)return toast('Genera un mes primero');
- hist()[MES]={guardado:new Date().toISOString(),rows:ROWS.map(r=>{const c=DB.casas.find(x=>x.id==r.c),h=DB.hermanos.find(x=>x.id==r.h);return{id:r.id,f:r.f,hora:r.hora,g:r.g,gs:r.gs,c:r.c,cn:c?.nombre||'',dir:c?.dir||'',h:r.h,hn:h?.nombre||'',terr:r.terr,...(r.st?{st:r.st}:{}),...(r.rp?{rp:r.rp}:{}),...(r.nt?{nt:r.nt}:{})};})};
+ hist()[MES]={guardado:new Date().toISOString(),rows:ROWS.map(r=>{const c=DB.casas.find(x=>x.id==r.c),h=DB.hermanos.find(x=>x.id==r.h);return{id:r.id,f:r.f,hora:r.hora,g:r.g,gs:r.gs,c:r.c,cn:c?.nombre||'',dir:c?.dir||'',h:r.h,hn:h?.nombre||'',terr:r.terr};})};
  localStorage.setItem('pj_hist',JSON.stringify(hist()));
  $('#sv').disabled=true;$('#st').className='save-status';$('#st').textContent='Guardando…';
  try{await save('Guarda programa '+MES);toast('Guardado en el historial (GitHub) ✓','ok');clean('Guardado ✓','ok');}
@@ -308,107 +276,7 @@ $('#editModeBtn').onclick=()=>{
 };
 document.addEventListener('keydown',e=>{if(e.key=='Enter'&&e.target.matches&&e.target.matches('.chip,.mbar,.rkr'))e.target.click();});
 
-/* ---------- Seguimiento y estadísticas ---------- */
-const RGN=[['','Todos'],['AN','Ancianos'],['SM','Siervos ministeriales'],['PRE','Precursores'],['PUB','Publicadores']];
-const rkOf=b=>{const t=((b&&b.tarea)||'').split('/').map(x=>x.trim().toUpperCase());return t.includes('AN')?'AN':t.includes('SM')?'SM':t.some(x=>x.startsWith('PR')||x=='PE'||x=='PA')?'PRE':'PUB';};
-let SK='',SW=null,ES='',ESALL=false,FB='',sdirty=false;
-const bro=id=>DB.hermanos.find(x=>x.id==id),bname=r=>bro(r.h)?.nombre||r.hn||'—',bn2=id=>bro(id)?.nombre||'—';
-const fdate=f=>P(f).toLocaleDateString('es-CL',{weekday:'short',day:'2-digit',month:'short'});
-const skey=()=>{const ks=Object.keys(hist()).sort();if(!hist()[SK])SK=hist()[MES]?MES:ks[ks.length-1]||'';return SK;};
 function normIds(){for(const k in hist())hist()[k].rows.forEach(r=>{if(!r.id)r.id=uid();});}
-const pool=per=>(per=='mes'?[skey()]:Object.keys(hist()).sort()).filter(k=>hist()[k]).flatMap(k=>hist()[k].rows.filter(r=>r.h).map(r=>({k,r})));
-const pct=(a,b)=>a+b?Math.round(a/(a+b)*100):null;
-const chipsH=(arr,cur,a)=>arr.map(([v,l])=>`<span class="chip ${cur==v?'on':''}" data-${a}="${v}" tabindex=0>${l}</span>`).join('');
-function pie(ok,no,pe){
- const t=ok+no+pe;if(!t)return '<svg viewBox="0 0 42 42"></svg>';
- let o=0;const seg=[[ok,'var(--brand)'],[no,'var(--bad)'],[pe,'var(--gold)']].filter(x=>x[0]).map(([n,c])=>{const p=n/t*100,e=`<circle cx=21 cy=21 r=10.5 fill=none stroke="${c}" stroke-width=21 pathLength=100 stroke-dasharray="${p} ${100-p}" stroke-dashoffset="${-o}"/>`;o+=p;return e;}).join('');
- return `<svg viewBox="0 0 42 42" role="img" aria-label="Gráfico de torta"><g transform="rotate(-90 21 21)">${seg}</g></svg>`;
-}
-const legend=(ok,no,pe)=>{const t=ok+no+pe,p=n=>t?Math.round(n/t*100)+'%':'0%';return `<div class=lgd><span><i style="background:var(--brand)"></i><b>${ok}</b> cumplió · ${p(ok)}</span><span><i style="background:var(--bad)"></i><b>${no}</b> no cumplió · ${p(no)}</span><span><i style="background:var(--gold)"></i><b>${pe}</b> pendiente · ${p(pe)}</span></div>`;};
-const kpis=(n,ok,no,pe,extra)=>{const c=pct(ok,no);return `<div class=kp><div><b>${n}</b><span>Asignaciones</span></div><div class=ok><b>${ok}</b><span>Cumplieron</span></div><div class=no><b>${no}</b><span>Fallaron</span></div><div class=pe><b>${pe}</b><span>Pendientes</span></div><div><b>${c===null?'—':c+'%'}</b><span>Cumplimiento</span></div>${extra||''}</div>`;};
-
-function findRow(id){for(const k in hist()){const r=hist()[k].rows.find(x=>x.id==id);if(r)return{k,r};}return null;}
-function setSt(id,p){
- const f=findRow(id);if(!f)return;Object.assign(f.r,p);
- for(const key of['st','rp','nt'])if(!f.r[key])delete f.r[key];
- if(f.k==MES){const q=ROWS.find(x=>x.id==id);if(q)Object.assign(q,{st:f.r.st||'',rp:f.r.rp||'',nt:f.r.nt||''});}
- localStorage.setItem('pj_hist',JSON.stringify(hist()));
- sdirty=true;segAll();
-}
-addEventListener('beforeunload',e=>{if(sdirty){e.preventDefault();e.returnValue='';}});
-
-const wlab=(k,m)=>{const[y,mo]=m.split('-').map(Number),e=k==3?new Date(y,mo,0).getDate():k*7+7;return (k*7+1)+'–'+e;};
-function autoWeek(k,W,today){
- if(k&&k==today.slice(0,7))return Math.min(3,Math.floor((+today.slice(8)-1)/7));
- const i=W.findIndex(rs=>rs.some(r=>!r.st&&r.f<=today));if(i>=0)return i;
- const j=W.findIndex(rs=>rs.length);return j>=0?j:0;
-}
-function segRender(){
- const ks=Object.keys(hist()).sort().reverse(),k=skey();
- $('#smo').innerHTML=ks.length?chipsH(ks.map(m=>[m,mname(m)]),k,'smo'):'<small>Aún no hay meses guardados. Guarda un programa en el historial para hacer su seguimiento.</small>';
- const all=k?hist()[k].rows.filter(r=>r.h).slice().sort((a,b)=>a.f.localeCompare(b.f)||a.hora.localeCompare(b.hora)):[],today=iso(new Date());
- const W=[0,1,2,3].map(i=>all.filter(r=>wk(r)==i));
- if(SW===null||SW<0||SW>3)SW=autoWeek(k,W,today);
- $('#swk').innerHTML=k&&all.length?chipsH(W.map((rs,i)=>[i,`Sem ${i+1} · ${wlab(i,k)} · ${rs.filter(r=>r.st).length}/${rs.length}`]),SW,'sw'):'';
- const rows=W[SW]||[];
- const ok=rows.filter(r=>r.st=='ok').length,no=rows.filter(r=>r.st=='no').length,pe=rows.length-ok-no;
- $('#sbar').innerHTML=k&&all.length?`<span class=bd>${ok} ✓</span><span class=bd>${no} ✕</span><span class=bd>${pe} pendientes</span><span class=sp></span>${AUTH?`<button data-bulk=1 title="Marca como cumplidas las salidas pendientes de esta semana hasta hoy">Marcar pendientes como cumplidos</button><button class=pri id=ssv ${sdirty?'':'disabled'}>Guardar seguimiento</button>`:'<small>🔒 Solo lectura · para marcar necesitas edición habilitada</small>'}`:'';
- const opts=r=>DB.hermanos.filter(x=>x.grupo&&x.activa!==false&&x.id!=r.h).sort((a,b)=>a.nombre.localeCompare(b.nombre)).map(x=>`<option value="${x.id}" ${x.id==r.rp?'selected':''}>${esc(x.nombre)}</option>`).join('');
- $('#stb').innerHTML=rows.length?`<div class=table-wrap><table><thead><tr><th>Fecha</th><th>Hora</th><th>Encargado</th><th>Lugar</th><th>Resultado</th></tr></thead><tbody>${rows.map(r=>{
-  const st=r.st=='ok'?'<span class="tag active">✓ Cumplió</span>':r.st=='no'?'<span class="tag bad">✕ No cumplió</span>':'<span class="tag gold">Pendiente</span>';
-  const ctl=AUTH?`<div class=sb><button class="small ${r.st=='ok'?'on-ok':''}" data-sk="${r.id}|ok">✓ Cumplió</button><button class="small ${r.st=='no'?'on-no':''}" data-sk="${r.id}|no">✕ No cumplió</button>${r.st?`<button class="small ghost" data-sk="${r.id}|" title="Volver a pendiente">↺</button>`:''}</div>${r.st=='no'?`<div class=rpl><select data-rp="${r.id}"><option value="">— Reemplazo (opcional) —</option>${opts(r)}</select><input data-nt="${r.id}" placeholder="Nota (opcional)" value="${esc(r.nt||'')}"></div>`:''}`:st+(r.st=='no'&&(r.rp||r.nt)?`<span class=cap>${r.rp?'Reemplazo: '+esc(bn2(r.rp)):''}${r.nt?' · '+esc(r.nt):''}</span>`:'');
-  return `<tr><td data-label="Fecha"><b style="text-transform:capitalize">${fdate(r.f)}</b>${r.f>today?' <span class=mut>(próxima)</span>':''}</td><td data-label="Hora"><span class=hv>${esc(r.hora)}</span></td><td data-label="Encargado"><b>${esc(bname(r))}</b></td><td data-label="Lugar">${esc(r.cn||DB.casas.find(x=>x.id==r.c)?.nombre||'—')}</td><td data-label="Resultado">${ctl}</td></tr>`;}).join('')}</tbody></table></div>`:(k?(all.length?'<small>Esta semana no tiene salidas con encargado.</small>':'<small>Este mes no tiene salidas con encargado.</small>'):'');
-}
-function estRender(){
- const ms=Object.keys(hist()).sort().reverse();
- if(!ms.length){$('#e_mes').innerHTML='<small>Sin meses guardados.</small>';$('#e_det').innerHTML='';return;}
- if(!ES||!hist()[ES])ES=hist()[skey()]?skey():ms[0];
- $('#e_mes').innerHTML=ms.map(k=>{let o=0,n=0,p=0;hist()[k].rows.filter(r=>r.h).forEach(r=>r.st=='ok'?o++:r.st=='no'?n++:p++);const c=pct(o,n);
-  return `<div class="mbar ${k==ES?'sel':''}" data-emes="${k}" tabindex=0 role=button aria-pressed="${k==ES}"><span>${mname(k)}</span><i><u style="width:${c||0}%"></u></i><span><b>${c===null?'—':c+'%'}</b></span></div>`;}).join('');
- const A={};let ok=0,no=0,pe=0;
- hist()[ES].rows.filter(r=>r.h).forEach(r=>{const a=A[r.h]||(A[r.h]={id:r.h,n:bname(r),ok:0,no:0,pe:0}),s=r.st=='ok'?'ok':r.st=='no'?'no':'pe';a[s]++;s=='ok'?ok++:s=='no'?no++:pe++;});
- const c=pct(ok,no),vals=Object.values(A);
- const lst=key=>vals.filter(a=>a[key]).sort((a,b)=>b[key]-a[key]||(key=='ok'?a.no-b.no:a.ok-b.ok)||a.n.localeCompare(b.n));
- const box=(key,t,ico,vacio)=>{const l=lst(key),sh=ESALL?l:l.slice(0,5);
-  return `<div class=rk><h3>${t}</h3>${sh.length?sh.map((a,i)=>`<div class=rkr data-fb="${a.id}" tabindex=0><span class=n>${i+1}</span><span>${esc(a.n)}</span><span class="v ${key}">${a[key]} ${ico}<em> de ${a.ok+a.no+a.pe}</em></span></div>`).join(''):`<small>${vacio}</small>`}</div>`;};
- const more=lst('ok').length>5||lst('no').length>5;
- $('#e_det').innerHTML=`<div class=edet><div class=eh><div><b class=big>${c===null?'—':c+'%'}</b><span class=lb>Cumplimiento · ${mname(ES)}</span></div><div class=cnt><span class=ok>${ok} cumplieron</span><span class=no>${no} fallaron</span><span class=pe>${pe} pendientes</span></div></div>
-  <div class=cols2>${box('ok','✓ Quienes más cumplieron','✓','Aún nadie ha cumplido este mes')}${box('no','✕ Quienes más fallaron','✕','Nadie ha fallado 🎉')}</div>
-  <div class=eact>${more?`<span class="chip" data-eall=1 tabindex=0>${ESALL?'Ver menos':'Ver todos'}</span>`:''}<button class="small ghost" data-goseg=1>Ir al seguimiento de este mes</button></div></div>`;
-}
-function ficRender(){
- const ids=new Set();Object.values(hist()).forEach(v=>v.rows.forEach(r=>{if(r.h)ids.add(r.h);}));DB.hermanos.filter(x=>x.grupo).forEach(x=>ids.add(x.id));
- $('#fbList').innerHTML=[...ids].map(bn2).filter(n=>n!='—').sort().map(n=>`<option value="${esc(n)}">`).join('');
- if(!FB){$('#fres').innerHTML='<p class=hint style="margin:0">Elige un hermano para ver su seguimiento.</p>';return;}
- const its=[];for(const k in hist())hist()[k].rows.forEach(r=>{if(r.h==FB)its.push(r);});its.sort((a,b)=>a.f.localeCompare(b.f)||a.hora.localeCompare(b.hora));
- const ok=its.filter(r=>r.st=='ok'),no=its.filter(r=>r.st=='no'),pe=its.filter(r=>!r.st),rm=[];
- for(const k in hist())hist()[k].rows.forEach(r=>{if(r.st=='no'&&r.rp==FB)rm.push(r);});
- const b=bro(FB),dr=(r,x)=>`<div class=dayrow><b>${fdate(r.f)}</b><span class=hv>${esc(r.hora)}</span><span>${esc(r.cn||DB.casas.find(c=>c.id==r.c)?.nombre||'')}</span>${x||''}</div>`;
- $('#fres').innerHTML=`<article class=card style="margin:0"><span class=eyebrow>Resumen</span><h2>${esc(bn2(FB))}</h2><small>${b?rango(b.tarea):''}${b?.gr?' · Grupo '+esc(b.gr):''}</small>
-  ${its.length?`<div class=pie>${pie(ok.length,no.length,pe.length)}${legend(ok.length,no.length,pe.length)}</div>`:'<p class=hint>Este hermano aún no tiene asignaciones en el historial.</p>'}
-  ${kpis(its.length,ok.length,no.length,pe.length,`<div><b>${rm.length}</b><span>Reemplazos hechos</span></div>`)}</article>
- <article class=card style="margin:0"><span class=eyebrow>Detalle por día</span><h2>Días de cumplimiento</h2>
-  <h3 style="color:var(--brand)">✓ Días que cumplió · ${ok.length}</h3>${ok.map(r=>dr(r)).join('')||'<small>Ninguno aún</small>'}
-  <h3 style="color:var(--bad)">✕ Días que no cumplió · ${no.length}</h3>${no.map(r=>dr(r,`${r.rp?`<span class="tag bad">Reemplazó: ${esc(bn2(r.rp))}</span>`:''}${r.nt?`<span class=cap>${esc(r.nt)}</span>`:''}`)).join('')||'<small>Ninguno 🎉</small>'}
-  ${rm.length?`<h3>↺ Días que reemplazó a otro · ${rm.length}</h3>${rm.map(r=>dr(r,`<span class=mut>por ${esc(bname(r))}</span>`)).join('')}`:''}
-  ${pe.length?`<h3 style="color:var(--gold)">Pendientes · ${pe.length}</h3>${pe.map(r=>dr(r)).join('')}`:''}</article>`;
-}
-function segAll(){segRender();estRender();ficRender();}
-$('#seg').addEventListener('click',e=>{const d=e.target.dataset||{};
- if(d.smo){SK=d.smo;SW=null;segAll();}
- if(d.sw!==undefined){SW=+d.sw;segAll();}
- if(d.sk&&AUTH){const[id,v]=d.sk.split('|');setSt(id,v?{st:v}:{st:'',rp:'',nt:''});}
- if(d.bulk&&AUTH){const t=iso(new Date());let n=0;(hist()[skey()]?.rows||[]).forEach(r=>{if(r.h&&wk(r)==SW&&!r.st&&r.f<=t){r.st='ok';n++;const q=ROWS.find(x=>x.id==r.id);if(q)q.st='ok';}});if(n){localStorage.setItem('pj_hist',JSON.stringify(hist()));sdirty=true;segAll();toast(n+' marcadas como cumplidas');}else toast('No hay pendientes hasta hoy en esta semana');}
- if(e.target.id=='ssv'){(async()=>{try{await save('Seguimiento '+skey());sdirty=false;toast('Seguimiento guardado ✓','ok');}catch(x){toast('Solo guardado en este navegador: '+x.message,'err');}segAll();})();}
-});
-$('#seg').addEventListener('change',e=>{const d=e.target.dataset||{};if(!AUTH)return;if(d.rp!==undefined)setSt(d.rp,{rp:e.target.value});if(d.nt!==undefined)setSt(d.nt,{nt:e.target.value.trim()});});
-$('#est').addEventListener('click',e=>{const el=e.target.closest('[data-emes],[data-fb],[data-eall],[data-goseg]');if(!el)return;const d=el.dataset;
- if(d.emes){ES=d.emes;ESALL=false;estRender();return;}
- if(d.eall!==undefined){ESALL=!ESALL;estRender();return;}
- if(d.goseg!==undefined){SK=ES;SW=null;segAll();$('#seg').scrollIntoView({behavior:'smooth'});return;}
- if(d.fb){FB=d.fb;$('#fbIn').value=bn2(FB);ficRender();$('#fic').scrollIntoView({behavior:'smooth'});}});
-$('#fbIn').oninput=e=>{const v=e.target.value.trim().toLowerCase(),h=DB.hermanos.find(x=>x.nombre.toLowerCase()==v);if(h){FB=h.id;ficRender();}};
-$('#fbClr').onclick=()=>{FB='';$('#fbIn').value='';ficRender();};
 
 load().then(async()=>{
  AUTH=await auth();

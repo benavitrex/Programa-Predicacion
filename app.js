@@ -157,9 +157,15 @@ button:focus-visible,.icon-btn:focus-visible,nav a:focus-visible,.chip:focus-vis
 .vm .vj{display:flex;flex-wrap:wrap;gap:6px}
 .lb{display:block;font:600 10.5px var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--soft);margin-bottom:6px}
 .wkd{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.dd{text-align:center;padding:6px 0;border-radius:8px;font:600 11.5px var(--mono);border:1px solid transparent;background:var(--fill);color:var(--soft);opacity:.7}
+.dd{text-align:center;padding:5px 0 4px;border-radius:8px;font:600 11.5px var(--mono);border:1px solid transparent;background:var(--fill);color:var(--soft);opacity:.7}
 .dd.on{opacity:1;background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
 .dd.sel{outline:2px solid var(--ink);outline-offset:1px}
+.dd::after{content:attr(data-s);display:block;font-size:10px;line-height:1.1;min-height:11px;margin-top:1px}
+.chip.dc{display:inline-flex;flex-direction:column;align-items:center;min-width:36px;line-height:1.15}
+.chip.dc::after{content:attr(data-s);display:block;font-size:11px;line-height:1;min-height:12px;margin-top:2px}
+.dgrid{display:grid;gap:6px;margin:6px 0 10px}
+.drow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.drow .dn{flex:0 0 92px;font-weight:600;font-size:13.5px}
 .wsum{font-size:12px;color:var(--soft);margin-top:7px}
 .bd{display:inline-block;font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:99px;border:1px solid var(--line);background:var(--fill);color:var(--ink);white-space:nowrap}
 .rk-AN{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
@@ -284,6 +290,19 @@ function toast(t,type=''){
   setTimeout(()=>{e.classList.add('out');setTimeout(()=>e.remove(),220);},3200);
 }
 const turnoOk=(t,x)=>!t||t=='MT'||t==x;
+
+/* ---------- Turno por día: x.dt = {día: 'M' | 'T' | 'MT'} ----------
+   dias y turno se mantienen sincronizados (dias = días con algún turno; turno = unión),
+   y los registros antiguos sin dt siguen funcionando. */
+const TI={'':'','M':'☀','T':'🌙','MT':'☀🌙'},TX={'':'no disponible','M':'solo mañana','T':'solo tarde','MT':'mañana y tarde'};
+const tAt=(x,d)=>x.dt?(x.dt[d]||''):((x.dias||[]).includes(d)?(x.turno||'MT'):'');
+const avail=(x,d,t)=>{const v=tAt(x,d);return !!v&&(!t||v.includes(t));};
+const availAny=(x,d,t)=>(d<0?ORDEN:[d]).some(k=>avail(x,k,t));
+const pass=(x,d,t)=>(d<0&&!t)||availAny(x,d,t);
+const tog2=(v,t)=>['M','T'].filter(c=>(c==t)!=(v||'').includes(c)).join('');
+const cyc=v=>({'':'M','M':'T','T':'MT','MT':''})[v||''];
+const allDT=v=>Object.fromEntries(ORDEN.map(d=>[d,v]));
+function setDT(x,dt){const c={};ORDEN.forEach(d=>{if(dt[d])c[d]=dt[d];});x.dt=c;x.dias=ORDEN.filter(d=>c[d]);const m=x.dias.some(d=>c[d].includes('M')),t=x.dias.some(d=>c[d].includes('T'));x.turno=m&&t?'MT':m?'M':t?'T':'MT';return x;}
 
 async function auth(){
   const c=cfg();if(!c.token||!c.owner||!c.repo)return false;

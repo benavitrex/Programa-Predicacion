@@ -23,13 +23,13 @@ dialog.wide{width:min(560px,calc(100% - 32px));max-height:90vh;overflow:auto}
 <div class="hero noprint"><span class="eyebrow">Registro</span><h1>Congregación <em>Curauma</em></h1><p class="sub">Casas y hermanos disponibles para la predicación, por día y turno.</p></div>
 <div class="grid" style="grid-template-columns:1fr">
  <section class="card"><span class="eyebrow">Territorios</span><h2>Casas disponibles <span class="badge" id="nc"></span></h2>
-  <p class="sub">Elige día y turno para ver qué casas pueden recibir el grupo.</p>
+  <p class="sub">Elige día y turno para ver qué casas pueden recibir el grupo. Bajo cada día se ve su turno (☀ mañana · 🌙 tarde).</p>
   <input id="q1" type="search" placeholder="Buscar familia, calle o territorio…" aria-label="Buscar casa">
   <div class="frow"><span class="fl-l">Día</span><div class="fl" id="fcd"></div></div>
   <div class="frow"><span class="fl-l">Turno</span><div class="fl" id="fct"></div></div>
   <div id="lc0"></div></section>
  <section class="card"><span class="eyebrow">Grupos</span><h2>Varones disponibles <span class="badge" id="nv"></span></h2>
-  <p class="sub">Quién puede sacar grupo, según rango, día y turno. En verde, los días en que puede salir.</p>
+  <p class="sub">Quién puede sacar grupo, según rango, día y turno. En verde, los días en que puede salir, con su turno (☀ mañana · 🌙 tarde).</p>
   <input id="q2" type="search" placeholder="Buscar hermano…" aria-label="Buscar hermano">
   <div class="vbar">
   <div class="frow"><span class="fl-l">Grupo</span><div class="fl" id="fvg"></div></div>
@@ -41,7 +41,7 @@ dialog.wide{width:min(560px,calc(100% - 32px));max-height:90vh;overflow:auto}
 </div>
 
 <section class="card noprint" id="ph" hidden><span class="eyebrow">Edición</span><h2>Hermanos</h2>
- <div class="panel-head"><p class="sub">Registra hermanos con su rango, grupo, días y turno (mañana, tarde o ambos).</p><button id="addH" class="pri" type="button">+ Añadir hermano</button></div>
+ <div class="panel-head"><p class="sub">Registra hermanos con su rango y grupo. Toca cada día para elegir su turno: ☀ mañana → 🌙 tarde → ☀🌙 ambos → libre.</p><button id="addH" class="pri" type="button">+ Añadir hermano</button></div>
  <div class="controls">
   <input type="search" id="eq_hermanos" placeholder="Buscar hermano en la lista…" aria-label="Buscar hermano en la lista">
   <select id="ef_hermanos" aria-label="Filtrar lista"><option value="">Todos</option><option value="si">Sacan grupo</option><option value="no">No sacan grupo</option></select>
@@ -53,7 +53,7 @@ dialog.wide{width:min(560px,calc(100% - 32px));max-height:90vh;overflow:auto}
 </section>
 
 <section class="card noprint" id="pc" hidden><span class="eyebrow">Edición</span><h2>Casas</h2>
- <div class="panel-head"><p class="sub">Registra casas con su dirección, territorios, días y turno. El generador respeta estas opciones.</p><button id="addC" class="pri" type="button">+ Añadir casa</button></div>
+ <div class="panel-head"><p class="sub">Registra casas con su dirección y territorios. Toca cada día para elegir en qué turno recibe: ☀ mañana → 🌙 tarde → ☀🌙 ambos → libre.</p><button id="addC" class="pri" type="button">+ Añadir casa</button></div>
  <div class="controls">
   <input type="search" id="eq_casas" placeholder="Buscar casa en la lista…" aria-label="Buscar casa en la lista">
   <select id="ef_casas" aria-label="Filtrar lista"><option value="">Todas</option><option value="si">Activas</option><option value="no">En pausa</option></select>
@@ -93,14 +93,14 @@ function paginate(k,L,sig){
   <button class="ghost arr" type="button" data-pn="${k}:1" aria-label="Siguiente" ${S.page>=pages?'disabled':''}>›</button></span></div>`;
  return{pg,bar};
 }
-const weekStrip=(days,sel)=>ORDEN.map(d=>{const on=days.includes(d);return `<span class="dd ${on?'on':''} ${d==sel?'sel':''}" title="${DIAS[d]}: ${on?'disponible':'no disponible'}">${DIAS[d].slice(0,2)}</span>`;}).join('');
+const weekStrip=(x,sel)=>ORDEN.map(d=>{const v=tAt(x,d);return `<span class="dd ${v?'on':''} ${d==sel?'sel':''}" data-s="${TI[v]}" title="${DIAS[d]}: ${TX[v]}">${DIAS[d].slice(0,2)}</span>`;}).join('');
 function ccard(x){
  const otros=[...new Set((x.cerca||[]).map(String))].filter(t=>t!==String(x.terr));
  return `<article class="cc ${x.activa===false?'off':''}"><b>${esc(x.nombre)}</b><span class=ad>📍 ${esc(x.dir||'Sin dirección')}</span>
   <span class="tag acc">Territorio ${esc(x.terr||'—')}</span>
   ${otros.length?`<div class=alt><span class=lb>También con</span>${otros.map(t=>`<span class=tag>Terr. ${esc(t)}</span>`).join('')}</div>`:''}
-  <div><span class=lb>Semana · días disponibles</span><div class=wkd role=group aria-label="Días disponibles de ${esc(x.nombre)}">${weekStrip(x.dias||[],fd)}</div></div>
-  ${turnoBadges(x.turno)}${EM?`<label class=sw><input type=checkbox data-ca=${x.id} ${x.activa===false?'':'checked'}><i></i><span>${x.activa===false?'En pausa':'Activa'}</span></label>`:''}</article>`;
+  <div><span class=lb>Semana · días y turnos</span><div class=wkd role=group aria-label="Días disponibles de ${esc(x.nombre)}">${weekStrip(x,fd)}</div></div>
+  ${turnoBadges(x)}${EM?`<label class=sw><input type=checkbox data-ca=${x.id} ${x.activa===false?'':'checked'}><i></i><span>${x.activa===false?'En pausa':'Activa'}</span></label>`:''}</article>`;
 }
 const uid=()=>Math.random().toString(36).slice(2,9);
 
@@ -110,15 +110,15 @@ const isPre=s=>s.startsWith('PR')||s=='PE'||s=='PA';
 const rk=x=>{const t=(x.tarea||'').split('/').map(s=>s.trim().toUpperCase()),an=t.includes('AN'),sm=t.includes('SM'),pre=t.some(isPre);return{AN:an,SM:sm,PRE:pre,PUB:!an&&!sm&&!pre,main:an?'AN':sm?'SM':pre?'PRE':'PUB'};};
 const chips=(arr,cur,a)=>arr.map(([v,l])=>`<span class="chip ${cur==v?'on':''}" data-${a}="${v}" tabindex=0>${l}</span>`).join('');
 const TURNOS=[['','Todos'],['M','☀ Mañana'],['T','🌙 Tarde']];
-const turnoBadges=t=>`<span class=tj>${turnoOk(t,'M')?'<span class=bd>☀ Mañana</span>':''}${turnoOk(t,'T')?'<span class=bd>🌙 Tarde</span>':''}</span>`;
+const turnoBadges=x=>{const all=ORDEN.filter(d=>tAt(x,d)),dm=all.filter(d=>avail(x,d,'M')),dt=all.filter(d=>avail(x,d,'T')),lab=(l,a)=>`<span class=bd>${l}${a.length<all.length?': '+a.map(d=>DIAS[d].slice(0,3)).join(', '):''}</span>`;return `<span class=tj>${dm.length?lab('☀ Mañana',dm):''}${dt.length?lab('🌙 Tarde',dt):''}</span>`;};
 
 function vcard(x){
  const r=rk(x).main,days=ORDEN.filter(d=>x.dias.includes(d));
- const strip=ORDEN.map(d=>{const on=x.dias.includes(d);return `<span class="dd ${on?'on':''} ${d==fv?'sel':''}" title="${DIAS[d]}: ${on?'disponible':'no disponible'}">${DIAS[d].slice(0,2)}</span>`;}).join('');
+ const strip=weekStrip(x,fv);
  const sum=!x.grupo?'No saca grupo':!days.length?'Sin día asignado':days.length==7?'Disponible todos los días':days.length+(days.length==1?' día':' días')+' a la semana · '+days.map(d=>DIAS[d].slice(0,3)).join(', ');
  return `<article class=vm><div class=vt><b class=vn>${esc(x.nombre)}</b><span class="bd rk-${r}">${rango(x.tarea)}</span></div>
-  <div><span class=lb>Semana · días disponibles</span><div class=wkd role=group aria-label="Días disponibles de ${esc(x.nombre)}">${strip}</div><div class=wsum>${sum}</div></div>
-  <div class=vf>${turnoBadges(x.turno)}
+  <div><span class=lb>Semana · días y turnos</span><div class=wkd role=group aria-label="Días disponibles de ${esc(x.nombre)}">${strip}</div><div class=wsum>${sum}</div></div>
+  <div class=vf>${turnoBadges(x)}
   <span class="lg ${x.grupo?'si':'no'}">${x.grupo?'✓ Saca grupo: Sí':'✕ Saca grupo: No'}</span></div></article>`;
 }
 function cards(){
@@ -128,8 +128,8 @@ function cards(){
  $('#fvg').innerHTML=chips([['','Todos'],['si','Saca grupo']],fgp,'fg');
  $('#fvr').innerHTML=chips([['','Todos'],['AN','Ancianos'],['SM','Siervos ministeriales'],['PRE','Precursores'],['PUB','Publicadores']],fr,'fr');
  const n1=q1.trim().toLowerCase(),n2=q2.trim().toLowerCase();
- const C=DB.casas.filter(x=>(EM||x.activa!==false)&&(fd<0||x.dias.includes(fd))&&(!ft||turnoOk(x.turno,ft))&&(!n1||(x.nombre+' '+(x.dir||'')+' '+(x.terr||'')).toLowerCase().includes(n1))).sort((a,b)=>(a.activa===false)-(b.activa===false)||a.nombre.localeCompare(b.nombre));
- const V=DB.hermanos.filter(x=>(fgp!='si'||x.grupo)&&x.activa!==false&&(fv<0||x.dias.includes(fv))&&(!fvt||turnoOk(x.turno,fvt))&&(!fr||rk(x)[fr])&&(!n2||x.nombre.toLowerCase().includes(n2))).sort((a,b)=>ORD[rk(a).main]-ORD[rk(b).main]||a.nombre.localeCompare(b.nombre));
+ const C=DB.casas.filter(x=>(EM||x.activa!==false)&&pass(x,fd,ft)&&(!n1||(x.nombre+' '+(x.dir||'')+' '+(x.terr||'')).toLowerCase().includes(n1))).sort((a,b)=>(a.activa===false)-(b.activa===false)||a.nombre.localeCompare(b.nombre));
+ const V=DB.hermanos.filter(x=>(fgp!='si'||x.grupo)&&x.activa!==false&&pass(x,fv,fvt)&&(!fr||rk(x)[fr])&&(!n2||x.nombre.toLowerCase().includes(n2))).sort((a,b)=>ORD[rk(a).main]-ORD[rk(b).main]||a.nombre.localeCompare(b.nombre));
  $('#nc').textContent=C.filter(x=>x.activa!==false).length;$('#nv').textContent=V.length;
  const PC=paginate('casas',C,[fd,ft,n1,EM].join('|')),PV=paginate('varones',V,[fv,fvt,fr,fgp,n2].join('|'));
  $('#lc0').innerHTML=(EM?'<p class=hint style="margin:6px 0 0">Usa el interruptor para pausar una casa: mientras esté en pausa, el programa no la usa.</p>':'')+(C.length?`<div class=cg>${PC.pg.map(ccard).join('')}</div>${PC.bar}`:'<p class=sub>Ninguna casa coincide con estos filtros.</p>');
@@ -137,15 +137,13 @@ function cards(){
 }
 
 /* ---------- Lista de edición (ordenada y paginada) ---------- */
-const turnoBtns=t=>`<div class=tj>`+[['M','☀ Mañana'],['T','🌙 Tarde']].map(([v,l])=>{const on=turnoOk(t,v);return `<span class="chip ${on?'on':''}" data-tn=${v} role=button tabindex=0 aria-pressed=${on}>${l}</span>`;}).join('')+`</div>`;
 function erow(k,x){
  const h=k=='hermanos',g=!h||x.grupo,off=x.activa===false;
  const sub=h?[rango(x.tarea),x.gr?'Gr. '+esc(x.gr):''].filter(Boolean).join(' · '):esc((x.dir||'')+(x.terr?' · Terr. '+x.terr:''));
  return `<tr class="erow ${off?'off':''}" data-k=${k} data-id=${x.id}>
  <td class=nm data-label="Nombre"><b>${esc(x.nombre)}</b><small>${sub}</small></td>
  ${h?`<td data-label="Saca grupo"><label class=sw><input type=checkbox data-g aria-label="Puede sacar grupo" ${x.grupo?'checked':''}><i></i></label></td>`:''}
- <td class=dy data-label="Días">${g?`<div class=tj>`+ORDEN.map(d=>`<span class="chip ${x.dias.includes(d)?'on':''}" data-d=${d} role=button tabindex=0 title="${DIAS[d]}">${DIAS[d].slice(0,2)}</span>`).join('')+`</div>`:'<span class=mut>No saca grupo</span>'}</td>
- <td data-label="Turno">${g?turnoBtns(x.turno):'<span class=mut>—</span>'}</td>
+ <td class=dy data-label="Días y turnos">${g?`<div class=tj>`+ORDEN.map(d=>{const v=tAt(x,d);return `<span class="chip dc ${v?'on':''}" data-d=${d} data-s="${TI[v]}" role=button tabindex=0 title="${DIAS[d]}: ${TX[v]} (toca para cambiar)">${DIAS[d].slice(0,2)}</span>`;}).join('')+`</div>`:'<span class=mut>No saca grupo</span>'}</td>
  <td data-label="${h?'Disponible':'Activa'}"><label class=sw><input type=checkbox data-a aria-label="${h?'Disponible':'Activa'}" ${off?'':'checked'}><i></i></label></td>
  <td data-label=""><div class=tj><button class="small" data-edit title="Editar" aria-label="Editar ${esc(x.nombre)}">✎ Editar</button><button class="danger small" data-del title="Eliminar" aria-label="Eliminar ${esc(x.nombre)}">✕</button></div></td></tr>`;
 }
@@ -156,7 +154,7 @@ function elist(k){
  const pages=Math.max(1,Math.ceil(L.length/S.size));S.page=Math.min(Math.max(1,S.page),pages);
  const st=(S.page-1)*S.size,pg=L.slice(st,st+S.size);
  $('#ec_'+k).innerHTML=L.length?`Mostrando <b>${st+1}–${st+pg.length}</b> de <b>${L.length}</b> (${DB[k].length} en total)`:`0 de ${DB[k].length}`;
- $(h?'#lh':'#lc').innerHTML=pg.length?`<div class="table-wrap e"><table class=etable><thead><tr><th>Nombre</th>${h?'<th>Saca grupo</th>':''}<th>Días</th><th>Turno</th><th>${h?'Disponible':'Activa'}</th><th></th></tr></thead><tbody>${pg.map(x=>erow(k,x)).join('')}</tbody></table></div>`:'<p class=sub>Nada coincide con estos filtros.</p>';
+ $(h?'#lh':'#lc').innerHTML=pg.length?`<div class="table-wrap e"><table class=etable><thead><tr><th>Nombre</th>${h?'<th>Saca grupo</th>':''}<th>Días y turnos</th><th>${h?'Disponible':'Activa'}</th><th></th></tr></thead><tbody>${pg.map(x=>erow(k,x)).join('')}</tbody></table></div>`:'<p class=sub>Nada coincide con estos filtros.</p>';
  $('#pg_'+k).hidden=pages<=1;$('#pi_'+k).textContent=`Página ${S.page} de ${pages}`;$('#pp_'+k).disabled=S.page<=1;$('#pn_'+k).disabled=S.page>=pages;
 }
 ['hermanos','casas'].forEach(k=>{
@@ -179,12 +177,7 @@ document.addEventListener('click',e=>{
  if('pp' in ds){const[k,d]=ds.pp.split(':');ES[k].page+=+d;return elist(k);}
  const r=find(e.target);if(!r||!AUTH)return;const [arr,x]=r;
  if(ds.edit!==undefined){openM(e.target.closest('.erow').dataset.k,x);return;}
- if(ds.d!==undefined){const d=+ds.d;x.dias=x.dias.includes(d)?x.dias.filter(v=>v!=d):[...x.dias,d];render();dirty();}
- if(ds.tn!==undefined){
-  const cur=x.turno||'MT',has={M:turnoOk(cur,'M'),T:turnoOk(cur,'T')};has[ds.tn]=!has[ds.tn];
-  if(!has.M&&!has.T){toast('Debe quedar al menos un turno','err');return;}
-  x.turno=has.M&&has.T?'MT':has.M?'M':'T';render();dirty();
- }
+ if(ds.d!==undefined){const d=+ds.d,dt={};ORDEN.forEach(k=>dt[k]=tAt(x,k));dt[d]=cyc(dt[d]);setDT(x,dt);render();dirty();}
  if(ds.del!==undefined&&confirm('¿Eliminar '+x.nombre+'?')){arr.splice(arr.indexOf(x),1);render();dirty();}
 });
 document.addEventListener('change',e=>{const k=e.target.dataset?.ps;if(!k)return;PS[k].size=+e.target.value;PS[k].page=1;cards();});
@@ -192,7 +185,7 @@ document.addEventListener('keydown',e=>{if((e.key=='Enter'||e.key==' ')&&e.targe
 document.addEventListener('change',e=>{const id=e.target.dataset?.ca;if(id===undefined||!AUTH)return;const x=DB.casas.find(c=>c.id==id);if(x){x.activa=e.target.checked;render();dirty();}});
 document.addEventListener('change',e=>{
  const r=find(e.target);if(!r||!AUTH)return;const x=r[1],ds=e.target.dataset;
- if('g' in ds){x.grupo=e.target.checked;if(x.grupo&&!x.dias.length)x.dias=[...ORDEN];}
+ if('g' in ds){x.grupo=e.target.checked;if(x.grupo&&!ORDEN.some(d=>tAt(x,d)))setDT(x,allDT(x.turno||'MT'));}
  if('a' in ds)x.activa=e.target.checked;
  render();dirty();
 });
@@ -200,14 +193,17 @@ document.addEventListener('change',e=>{
 let M=null;
 const RANKS=[['AN','Anciano'],['SM','Siervo ministerial'],['PR','Precursor regular'],['PE','Precursor especial'],['PA','Precursor auxiliar'],['SC','Superintendente de circuito'],['PTJ','Publicador']];
 const PRE3=['PR','PE','PA'];
+const syncDays=()=>document.querySelectorAll('#m_dgrid [data-mdt]').forEach(el=>{const[d,t]=el.dataset.mdt.split(':'),on=M.dt[d].includes(t);el.classList.toggle('on',on);el.setAttribute('aria-pressed',on);});
 const mChip=(a,v,l,on)=>`<span class="chip ${on?'on':''}" data-${a}="${v}" role=button tabindex=0 aria-pressed=${on}>${l}</span>`;
 function openM(k,x){
- const h=k=='hermanos',t=x?.turno||'MT';
- M={k,x:x||null,dias:new Set(x?x.dias:ORDEN),turno:{M:turnoOk(t,'M'),T:turnoOk(t,'T')},rank:new Set(x?(x.tarea||'').split('/').map(s=>s.trim().toUpperCase()).filter(Boolean):['PTJ'])};
+ const h=k=='hermanos';
+ M={k,x:x||null,dt:x?Object.fromEntries(ORDEN.map(d=>[d,tAt(x,d)])):allDT('MT'),rank:new Set(x?(x.tarea||'').split('/').map(s=>s.trim().toUpperCase()).filter(Boolean):['PTJ'])};
  if(!M.rank.size)M.rank.add('PTJ');
  const grupo=x?!!x.grupo:true,terrs=(x?.cerca?.length?x.cerca:[x?.terr].filter(Boolean)).join(', ');
- const sched=`<div id=m_sched ${h&&!grupo?'hidden':''}><div class=field><label>Días ${h?'en que saca grupo':'disponibles'}</label><div class=fl>${ORDEN.map(d=>mChip('md',d,DIAS[d].slice(0,3),M.dias.has(d))).join('')}</div></div>
-  <div class=field><label>Turno</label><div class=fl>${mChip('mt','M','☀ Mañana',M.turno.M)}${mChip('mt','T','🌙 Tarde',M.turno.T)}</div><p class=hint style="margin:4px 0 0">Enciende los dos para mañana y tarde.</p></div></div>`;
+ const sched=`<div id=m_sched ${h&&!grupo?'hidden':''}><div class=field><label>Días y turnos ${h?'en que saca grupo':'disponibles'}</label>
+  <div class=dgrid id=m_dgrid>${ORDEN.map(d=>`<div class=drow><span class=dn>${DIAS[d]}</span>${mChip('mdt',d+':M','☀ Mañana',M.dt[d].includes('M'))}${mChip('mdt',d+':T','🌙 Tarde',M.dt[d].includes('T'))}</div>`).join('')}</div>
+  <div class=fl><span class=lb>Rápido</span><span class=chip data-mp="MT" role=button tabindex=0>Todos ☀🌙</span><span class=chip data-mp="M" role=button tabindex=0>Todas las mañanas</span><span class=chip data-mp="T" role=button tabindex=0>Todas las tardes</span><span class=chip data-mp="" role=button tabindex=0>Limpiar</span></div>
+  <p class=hint style="margin:4px 0 0">Enciende solo los turnos en que sí está disponible. Un día sin turnos queda como no disponible.</p></div></div>`;
  $('#dlgE').innerHTML=`<h3>${x?'Editar':'Añadir'} ${h?'hermano':'casa'}</h3>
  <div class=field><label for=m_nombre>${h?'Nombre':'Familia / dueño de la casa'}</label><input type=text id=m_nombre value="${esc(x?.nombre||'')}" placeholder="${h?'Nombre y apellido':'Fam. Apellido'}" autocomplete=off></div>
  ${h?`<div class=field><label>Rango</label><div class=fl id=m_rank>${RANKS.map(([c,l])=>mChip('mr',c,l,M.rank.has(c))).join('')}</div></div>
@@ -226,15 +222,15 @@ function saveM(){
  const nombre=$('#m_nombre').value.trim();
  if(nombre.length<2)return err(h?'Escribe el nombre del hermano.':'Escribe de quién es la casa.');
  const grupo=h?$('#m_grupo').checked:true,needS=!h||grupo;
- if(needS){if(!M.dias.size)return err('Elige al menos un día.');if(!M.turno.M&&!M.turno.T)return err('Elige mañana, tarde o ambos.');}
- const turno=M.turno.M&&M.turno.T?'MT':M.turno.M?'M':M.turno.T?'T':'MT',dias=needS?ORDEN.filter(d=>M.dias.has(d)):[],activa=$('#m_act').checked;
+ if(needS&&!ORDEN.some(d=>M.dt[d]))return err('Elige al menos un día con su turno (mañana, tarde o ambos).');
+ const sc=setDT({},needS?M.dt:{}),activa=$('#m_act').checked;
  let o;
- if(h){const ord=['AN','SM','PR','PE','PA','SC','PTJ'];o={nombre,tarea:ord.filter(c=>M.rank.has(c)).join('/')||'PTJ',gr:$('#m_gr').value,grupo,turno,dias,activa};}
+ if(h){const ord=['AN','SM','PR','PE','PA','SC','PTJ'];o={nombre,tarea:ord.filter(c=>M.rank.has(c)).join('/')||'PTJ',gr:$('#m_gr').value,grupo,dt:sc.dt,dias:sc.dias,turno:sc.turno,activa};}
  else{
   const dir=$('#m_dir').value.trim();if(!dir)return err('Escribe la dirección.');
   const L=[...new Set($('#m_terr').value.split(/[,;\s]+/).map(s=>s.trim()).filter(Boolean))];
   if(!L.length)return err('Escribe al menos un territorio.');
-  o={nombre,dir,terr:L[0],cerca:L.map(v=>isNaN(v)?v:Number(v)),turno,dias,activa};
+  o={nombre,dir,terr:L[0],cerca:L.map(v=>isNaN(v)?v:Number(v)),dt:sc.dt,dias:sc.dias,turno:sc.turno,activa};
  }
  if(x)Object.assign(x,o);else DB[k].push({id:uid(),...o});
  $('#dlgE').close();
@@ -247,8 +243,8 @@ $('#dlgE').addEventListener('click',e=>{
  if(e.target==$('#dlgE'))return $('#dlgE').close();
  const ds=e.target.dataset||{};if(!M)return;
  const tog=(el,on)=>{el.classList.toggle('on',on);el.setAttribute('aria-pressed',on);};
- if(ds.md!==undefined){const d=+ds.md,on=!M.dias.has(d);on?M.dias.add(d):M.dias.delete(d);tog(e.target,on);}
- if(ds.mt!==undefined){M.turno[ds.mt]=!M.turno[ds.mt];tog(e.target,M.turno[ds.mt]);}
+ if(ds.mdt!==undefined){const[d,t]=ds.mdt.split(':');M.dt[d]=tog2(M.dt[d],t);tog(e.target,M.dt[d].includes(t));}
+ if(ds.mp!==undefined){ORDEN.forEach(d=>M.dt[d]=ds.mp);syncDays();}
  if(ds.mr!==undefined){const c=ds.mr;
   if(c=='PTJ')M.rank=new Set(['PTJ']);
   else{M.rank.delete('PTJ');if(M.rank.has(c))M.rank.delete(c);else{if(PRE3.includes(c))PRE3.forEach(p=>M.rank.delete(p));M.rank.add(c);}}
@@ -260,7 +256,7 @@ $('#dlgE').addEventListener('click',e=>{
 $('#dlgE').addEventListener('change',e=>{
  if(e.target.id!='m_grupo')return;
  $('#m_sched').hidden=!e.target.checked;
- if(e.target.checked&&!M.dias.size){M.dias=new Set(ORDEN);document.querySelectorAll('#m_sched [data-md]').forEach(el=>el.classList.add('on'));}
+ if(e.target.checked&&!ORDEN.some(d=>M.dt[d])){M.dt=allDT('MT');syncDays();}
 });
 $('#dlgE').addEventListener('keydown',e=>{if(e.key=='Enter'&&e.target.tagName=='INPUT'&&e.target.type=='text'){e.preventDefault();saveM();}});
 $('#addH').onclick=()=>openM('hermanos');$('#addC').onclick=()=>openM('casas');

@@ -1,5 +1,5 @@
-const C='predicacion-v7';
-const ASSETS=['./','./index.html','./sw.js'];
+const C='predicacion-v8';
+const ASSETS=['./','./index.html','./programa.html','./app.js','./sw.js'];
 
 self.addEventListener('install',e=>{
   e.waitUntil(
