@@ -94,9 +94,15 @@ function paginate(k,L,sig){
  return{pg,bar};
 }
 const weekStrip=(x,sel)=>ORDEN.map(d=>{const v=tAt(x,d);return `<span class="dd ${v?'on':''} ${d==sel?'sel':''}" data-s="${TI[v]}" title="${DIAS[d]}: ${TX[v]}">${DIAS[d].slice(0,2)}</span>`;}).join('');
+/* Botones para abrir la dirección en Google Maps o en Waze */
+const CIUDAD=', Curauma, Valparaíso, Chile';
+const IC_MAPS='<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="#EA4335" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg>';
+const IC_WAZE='<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="#33CCFF" d="M12 3c-4.7 0-8.5 3.3-8.5 7.6 0 1.4.4 2.6 1 3.7-.2 1-.7 2-1.5 2.7 1.5.1 2.8-.3 3.8-1 1.3.8 2.8 1.2 5.2 1.2 4.700 0 8.500-3.300 8.500-7.600S16.700 3 12 3z"/><circle cx="9.200" cy="10" r="1.100" fill="#1B1B1B"/><circle cx="14.800" cy="10" r="1.100" fill="#1B1B1B"/><path d="M9 13c1.800 1.400 4.200 1.400 6 0" fill="none" stroke="#1B1B1B" stroke-width="1.200" stroke-linecap="round"/><circle cx="8.500" cy="18.500" r="1.800" fill="#1B1B1B" stroke="#33CCFF" stroke-width="1"/><circle cx="15.500" cy="18.500" r="1.800" fill="#1B1B1B" stroke="#33CCFF" stroke-width="1"/></svg>';
+const goLinks=dir=>{if(!dir)return '';const q=encodeURIComponent(dir+CIUDAD);
+ return `<div class=go role=group aria-label="Cómo llegar"><a href="https://www.google.com/maps/search/?api=1&query=${q}" target=_blank rel="noopener noreferrer" aria-label="Abrir ${esc(dir)} en Google Maps">${IC_MAPS}Maps</a><a href="https://waze.com/ul?q=${q}&navigate=yes" target=_blank rel="noopener noreferrer" aria-label="Abrir ${esc(dir)} en Waze">${IC_WAZE}Waze</a></div>`;};
 function ccard(x){
  const otros=[...new Set((x.cerca||[]).map(String))].filter(t=>t!==String(x.terr));
- return `<article class="cc ${x.activa===false?'off':''}"><b>${esc(x.nombre)}</b><span class=ad>📍 ${esc(x.dir||'Sin dirección')}</span>
+ return `<article class="cc ${x.activa===false?'off':''}"><b>${esc(x.nombre)}</b><span class=ad>📍 ${esc(x.dir||'Sin dirección')}</span>${goLinks(x.dir)}
   <span class="tag acc">Territorio ${esc(x.terr||'—')}</span>
   ${otros.length?`<div class=alt><span class=lb>También con</span>${otros.map(t=>`<span class=tag>Terr. ${esc(t)}</span>`).join('')}</div>`:''}
   <div><span class=lb>Semana · días y turnos</span><div class=wkd role=group aria-label="Días disponibles de ${esc(x.nombre)}">${weekStrip(x,fd)}</div></div>

@@ -135,6 +135,11 @@ button:focus-visible,.icon-btn:focus-visible,nav a:focus-visible,.chip:focus-vis
 .cc:hover{border-color:var(--brand)}
 .cc b{font-size:15.5px;font-weight:600;line-height:1.25}
 .ad{font-size:13px;color:var(--soft)}
+.go{display:flex;flex-wrap:wrap;gap:6px}
+.go a{display:inline-flex;align-items:center;gap:6px;padding:4px 11px 4px 9px;border:1px solid var(--line);border-radius:99px;font-size:12px;font-weight:600;color:var(--soft);text-decoration:none;background:var(--card);transition:border-color .15s,color .15s}
+.go a:hover{border-color:var(--brand);color:var(--ink)}
+.go a:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.go svg{flex:none}
 .tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 9px;border-radius:99px;background:var(--fill);color:var(--soft);align-self:flex-start}
 .tag.acc,.tag.active{background:var(--brand-bg);color:var(--brand)}
 .tag.am{background:var(--gold-bg);color:var(--gold)}.tag.pm{background:var(--brand-bg);color:var(--brand)}
