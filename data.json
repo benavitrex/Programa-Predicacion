@@ -784,7 +784,7 @@
       "nombre": "Felipe Gonzalez",
       "tarea": "AN/PR",
       "gr": "4",
-      "turno": "MT",
+      "turno": "M",
       "grupo": true,
       "dias": [
         1,
@@ -794,7 +794,7 @@
       "activa": true,
       "dt": {
         "1": "M",
-        "3": "T",
+        "3": "M",
         "5": "M"
       }
     },
