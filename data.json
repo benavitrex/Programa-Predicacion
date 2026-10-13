@@ -438,9 +438,26 @@
       "tarea": "PTJ",
       "gr": "1",
       "turno": "MT",
-      "grupo": false,
-      "dias": [],
-      "activa": true
+      "grupo": true,
+      "dias": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        0
+      ],
+      "activa": true,
+      "dt": {
+        "0": "MT",
+        "1": "MT",
+        "2": "MT",
+        "3": "MT",
+        "4": "MT",
+        "5": "MT",
+        "6": "MT"
+      }
     },
     {
       "id": "h47",
@@ -633,9 +650,26 @@
       "tarea": "PTJ",
       "gr": "4",
       "turno": "MT",
-      "grupo": false,
-      "dias": [],
-      "activa": true
+      "grupo": true,
+      "dias": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        0
+      ],
+      "activa": true,
+      "dt": {
+        "0": "MT",
+        "1": "MT",
+        "2": "MT",
+        "3": "MT",
+        "4": "MT",
+        "5": "MT",
+        "6": "MT"
+      }
     },
     {
       "id": "h81",
