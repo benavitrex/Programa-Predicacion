@@ -543,11 +543,13 @@
       "turno": "M",
       "grupo": true,
       "dias": [
+        6,
         0
       ],
       "activa": true,
       "dt": {
-        "0": "M"
+        "0": "M",
+        "6": "M"
       }
     },
     {
@@ -573,10 +575,12 @@
       "turno": "M",
       "grupo": true,
       "dias": [
-        6
+        6,
+        0
       ],
       "activa": true,
       "dt": {
+        "0": "M",
         "6": "M"
       }
     },
@@ -765,10 +769,12 @@
       "turno": "M",
       "grupo": true,
       "dias": [
-        6
+        6,
+        0
       ],
       "activa": true,
       "dt": {
+        "0": "M",
         "6": "M"
       }
     },
