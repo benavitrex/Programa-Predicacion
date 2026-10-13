@@ -542,7 +542,7 @@
       "nombre": "Miguel Meneses",
       "tarea": "SM",
       "gr": "4",
-      "turno": "MT",
+      "turno": "M",
       "grupo": true,
       "dias": [
         3,
@@ -551,7 +551,7 @@
       ],
       "activa": true,
       "dt": {
-        "3": "T",
+        "3": "M",
         "4": "M",
         "6": "M"
       }
