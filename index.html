@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="utf-8"><title>Predicación · Congregación Curauma</title>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Predicación · Congregación Curauma</title>
 <style>
 dialog.wide{width:min(560px,calc(100% - 32px));max-height:90vh;overflow:auto}
 .field select{width:100%;background:var(--fill)}
@@ -16,26 +16,94 @@ dialog.wide{width:min(560px,calc(100% - 32px));max-height:90vh;overflow:auto}
 .pgbar .pg-mid{display:flex;align-items:center;gap:10px;margin-left:auto}
 .pgbar .pg-info{font-size:12.5px;color:var(--soft)}
 .pgbar .arr{padding:5px 12px;font-size:16px;line-height:1}
+
+/* ===== Rediseño: más limpio, pensado para iPad y PC ===== */
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{-webkit-tap-highlight-color:transparent}
+button,.chip,.cell,.th,summary{touch-action:manipulation}
+.chip{user-select:none;-webkit-user-select:none}
+main{max-width:1240px;margin-inline:auto;padding-bottom:calc(110px + env(safe-area-inset-bottom))}
+.hero h1{font-size:clamp(28px,4.2vw,46px)}
+.hero .sub{max-width:60ch}
+.tn{display:inline-block;min-width:22px;padding:1px 8px;border-radius:999px;background:var(--fill);font:700 12px/1.5 var(--mono,ui-monospace,monospace);color:var(--soft);text-align:center}
+.tn:empty{display:none}
+.tabs{position:sticky;top:var(--hdr,0px);z-index:15;display:flex;gap:6px;padding:6px;margin:6px 0 18px;border:1px solid var(--line);border-radius:14px;background:color-mix(in srgb,var(--card,#fff) 92%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:1 1 0;min-height:46px;padding:0 16px;border:0;border-radius:10px;background:transparent;color:var(--soft);font-weight:600;font-size:15px;white-space:nowrap;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;box-shadow:none}
+.tabs button:hover{background:var(--fill)}
+.tabs button[aria-selected=true]{background:var(--fill);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--brand)}
+.tabs button.et{flex:0 1 auto}
+.card h2 .badge{vertical-align:middle}
+.card>.sub{margin:2px 0 14px;font-size:13.5px}
+.fbar{display:grid;gap:12px;margin:0 0 18px}
+.fbar input[type=search]{width:100%;min-height:46px;font-size:16px}
+.card .frow{display:flex;align-items:center;gap:12px;margin:0}
+.card .frow .fl-l{flex:0 0 50px;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--soft);font-weight:700}
+.card .frow .fl{margin:0;flex:1 1 auto;min-width:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:2px 0}
+.card .frow .fl::-webkit-scrollbar{display:none}
+.card .frow .chip{flex:0 0 auto}
+.more>summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;border:1px solid var(--line);border-radius:999px;font-weight:600;font-size:13.5px;color:var(--ink);user-select:none}
+.more>summary::-webkit-details-marker{display:none}
+.more>summary::after{content:"▾";color:var(--soft);font-size:12px}
+.more[open]>summary{background:var(--fill)}
+.more[open]>summary::after{content:"▴"}
+.more .frow{margin-top:12px}
+.more .frow .fl{flex-wrap:wrap;overflow:visible}
+.card .cg,.card .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.cc>div:not(.alt)>.lb,.vm>div>.lb{display:none}
+.cc,.vm{min-width:0}
+.mapcard .mapbox{height:clamp(220px,34vh,320px);border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--fill)}
+.mapcard .mapbox iframe{display:block;width:100%;height:100%;border:0}
+.table-wrap.e{overflow-x:auto;-webkit-overflow-scrolling:touch}
+dialog.wide{max-height:90vh;max-height:90dvh}
+@media (min-width:900px){
+ .fbar{grid-template-columns:minmax(260px,340px) 1fr;column-gap:24px;align-items:center}
+ .fbar input[type=search]{grid-row:span 2}
+ .fbar>.more{grid-column:1/-1}
+}
+@media (max-width:640px){
+ .tabs button{padding:0 10px;font-size:14px}
+ .card .frow{align-items:flex-start;flex-direction:column;gap:6px}
+ .card .frow .fl{width:100%}
+}
+@media (pointer:coarse){
+ button,select,input[type=search],input[type=text]{min-height:44px}
+ input,select,textarea{font-size:16px}
+ .chip{min-height:40px;display:inline-flex;align-items:center}
+ .tm .cell{min-height:38px}
+ .tm .th{min-height:34px}
+ .dd{min-width:32px;min-height:32px}
+}
+@media print{.tabs{display:none!important}}
 </style></head><body>
-<iframe class="map" title="Mapa de territorios" loading="lazy" allowfullscreen
- src="https://www.google.com/maps/d/embed?mid=1H8j2hSNLHMMxyiIiBI___XOZpPDxobc&ll=-33.1185198147293%2C-71.5801330577226&z=16"></iframe>
 <main>
 <div class="hero noprint"><span class="eyebrow">Registro</span><h1>Congregación <em>Curauma</em></h1><p class="sub">Casas y hermanos disponibles para la predicación, por día y turno.</p></div>
+<nav class="tabs noprint" id="tabs" role="tablist" aria-label="Secciones">
+ <button type="button" role="tab" data-tab="c" aria-selected="true">🏠 Casas <span class="tn" id="ntc"></span></button>
+ <button type="button" role="tab" data-tab="v" aria-selected="false">👥 Varones <span class="tn" id="ntv"></span></button>
+ <button type="button" role="tab" data-tab="h" aria-selected="false" class="et" hidden>✏️ Editar hermanos</button>
+ <button type="button" role="tab" data-tab="e" aria-selected="false" class="et" hidden>✏️ Editar casas</button>
+</nav>
 <div class="grid" style="grid-template-columns:1fr">
- <section class="card"><span class="eyebrow">Territorios</span><h2>Casas disponibles <span class="badge" id="nc"></span></h2>
-  <p class="sub">Elige día y turno para ver qué casas pueden recibir el grupo. Bajo cada día se ve su turno (☀ mañana · 🌙 tarde).</p>
-  <input id="q1" type="search" placeholder="Buscar familia, calle o territorio…" aria-label="Buscar casa">
-  <div class="frow"><span class="fl-l">Día</span><div class="fl" id="fcd"></div></div>
-  <div class="frow"><span class="fl-l">Turno</span><div class="fl" id="fct"></div></div>
+ <section class="card" id="secC"><span class="eyebrow">Territorios</span><h2>Casas disponibles <span class="badge" id="nc"></span></h2>
+  <p class="sub">Elige día y turno (☀ mañana · 🌙 tarde) para ver qué casas pueden recibir el grupo.</p>
+  <div class="fbar">
+   <input id="q1" type="search" placeholder="Buscar familia, calle o territorio…" aria-label="Buscar casa">
+   <div class="frow"><span class="fl-l">Día</span><div class="fl" id="fcd"></div></div>
+   <div class="frow"><span class="fl-l">Turno</span><div class="fl" id="fct"></div></div>
+  </div>
   <div id="lc0"></div></section>
- <section class="card"><span class="eyebrow">Grupos</span><h2>Varones disponibles <span class="badge" id="nv"></span></h2>
-  <p class="sub">Quién puede sacar grupo, según rango, día y turno. En verde, los días en que puede salir, con su turno (☀ mañana · 🌙 tarde).</p>
-  <input id="q2" type="search" placeholder="Buscar hermano…" aria-label="Buscar hermano">
-  <div class="vbar">
-  <div class="frow"><span class="fl-l">Grupo</span><div class="fl" id="fvg"></div></div>
-  <div class="frow"><span class="fl-l">Rango</span><div class="fl" id="fvr"></div></div>
-  <div class="frow"><span class="fl-l">Día</span><div class="fl" id="fvd"></div></div>
-  <div class="frow"><span class="fl-l">Turno</span><div class="fl" id="fvt"></div></div>
+ <section class="card" id="secV" hidden><span class="eyebrow">Grupos</span><h2>Varones disponibles <span class="badge" id="nv"></span></h2>
+  <p class="sub">Quién puede sacar grupo, según día y turno. En verde, los días en que puede salir (☀ mañana · 🌙 tarde).</p>
+  <div class="fbar">
+   <input id="q2" type="search" placeholder="Buscar hermano…" aria-label="Buscar hermano">
+   <div class="frow"><span class="fl-l">Día</span><div class="fl" id="fvd"></div></div>
+   <div class="frow"><span class="fl-l">Turno</span><div class="fl" id="fvt"></div></div>
+   <details class="more" id="vmore"><summary>Más filtros <span class="tn" id="nfv"></span></summary>
+    <div class="frow"><span class="fl-l">Grupo</span><div class="fl" id="fvg"></div></div>
+    <div class="frow"><span class="fl-l">Rango</span><div class="fl" id="fvr"></div></div>
+   </details>
   </div>
   <div id="lv0"></div></section>
 </div>
@@ -63,6 +131,9 @@ dialog.wide{width:min(560px,calc(100% - 32px));max-height:90vh;overflow:auto}
  <div id="lc"></div>
  <div class="pagination" id="pg_casas"><span class="pg-info" id="pi_casas"></span><span class="pg-btns"><button class="ghost small" type="button" data-pp="casas:-1" id="pp_casas">‹ Anterior</button><button class="ghost small" type="button" data-pp="casas:1" id="pn_casas">Siguiente ›</button></span></div>
 </section>
+<section class="card mapcard" id="mapa"><span class="eyebrow">Referencia</span><h2>Mapa de territorios</h2>
+ <div class="mapbox"><iframe title="Mapa de territorios" loading="lazy" allowfullscreen
+ src="https://www.google.com/maps/d/embed?mid=1H8j2hSNLHMMxyiIiBI___XOZpPDxobc&ll=-33.1185198147293%2C-71.5801330577226&z=16"></iframe></div></section>
 </main>
 
 <dialog id="dlgE" class="wide" aria-label="Añadir o editar"></dialog>
@@ -80,8 +151,8 @@ let AUTH=false,EM=false,fd=new Date().getDay(),fv=fd,ft='',fr='',fvt='',fgp='si'
 const ES={hermanos:{q:'',f:'si',size:10,page:1},casas:{q:'',f:'',size:10,page:1}};
 const ORD={AN:0,SM:1,PRE:2,PUB:3};
 /* Paginación de las listas públicas (casas / varones) */
-const PS={casas:{size:9,page:1,sig:''},varones:{size:9,page:1,sig:''}};
-const SIZES=[[9,'9'],[18,'18'],[27,'27'],[9999,'Todos']];
+const PS={casas:{size:12,page:1,sig:''},varones:{size:12,page:1,sig:''}};
+const SIZES=[[12,'12'],[24,'24'],[36,'36'],[9999,'Todos']];
 function paginate(k,L,sig){
  const S=PS[k];if(S.sig!==sig){S.sig=sig;S.page=1;}
  const pages=Math.max(1,Math.ceil(L.length/S.size));S.page=Math.min(Math.max(1,S.page),pages);
@@ -141,6 +212,7 @@ function cards(){
  const C=DB.casas.filter(x=>(EM||x.activa!==false)&&pass(x,fd,ft)&&(!n1||(x.nombre+' '+(x.dir||'')+' '+(x.terr||'')).toLowerCase().includes(n1))).sort((a,b)=>(a.activa===false)-(b.activa===false)||a.nombre.localeCompare(b.nombre));
  const V=DB.hermanos.filter(x=>(fgp!='si'||x.grupo)&&x.activa!==false&&pass(x,fv,fvt)&&(!fr||rk(x)[fr])&&(!n2||x.nombre.toLowerCase().includes(n2))).sort((a,b)=>ORD[rk(a).main]-ORD[rk(b).main]||a.nombre.localeCompare(b.nombre));
  $('#nc').textContent=C.filter(x=>x.activa!==false).length;$('#nv').textContent=V.length;
+ $('#ntc').textContent=$('#nc').textContent;$('#ntv').textContent=V.length;$('#nfv').textContent=((fr?1:0)+(fgp!='si'?1:0))||'';
  const PC=paginate('casas',C,[fd,ft,n1,EM].join('|')),PV=paginate('varones',V,[fv,fvt,fr,fgp,n2].join('|'));
  $('#lc0').innerHTML=(EM?'<p class=hint style="margin:6px 0 0">Usa el interruptor para pausar una casa: mientras esté en pausa, el programa no la usa.</p>':'')+(C.length?`<div class=cg>${PC.pg.map(ccard).join('')}</div>${PC.bar}`:'<p class=sub>Ninguna casa coincide con estos filtros.</p>');
  $('#lv0').innerHTML=V.length?`<div class=vgrid>${PV.pg.map(vcard).join('')}</div>${PV.bar}`:'<p class=sub>Nadie coincide con estos filtros.</p>';
@@ -174,7 +246,7 @@ function elist(k){
 });
 function render(){
  cards();
- $('#ph').hidden=$('#pc').hidden=!EM;
+ applyTab();
  if(!EM)return;
  elist('hermanos');elist('casas');
 }
@@ -279,7 +351,7 @@ $('#editModeBtn').onclick=()=>{
  $('#editModeBtn').textContent=EM?'✏️ Edición: on':'✏️ Edición: off';
  $('#editModeBtn').setAttribute('aria-pressed',EM);
  render();
- toast(EM?'Modo edición activado — gestiona hermanos y casas abajo':'Modo edición desactivado',EM?'ok':'');
+ toast(EM?'Modo edición activado — aparecieron las pestañas para editar hermanos y casas':'Modo edición desactivado',EM?'ok':'');
 };
 window.addEventListener('beforeunload',e=>{if(!$('#saveBtn').disabled){e.preventDefault();e.returnValue='';}});
 $('#saveBtn').onclick=async()=>{
@@ -287,10 +359,22 @@ $('#saveBtn').onclick=async()=>{
  try{await save();$('#st').className='save-status ok';$('#st').textContent='Guardado ✓ (el sitio público se actualiza en ~1 min)';toast('Cambios guardados en GitHub ✓','ok');}
  catch(e){$('#saveBtn').disabled=false;$('#st').className='save-status err';$('#st').textContent=e.message;toast('No se pudo guardar: '+e.message,'err');}
 };
+/* ---------- Pestañas ---------- */
+let TAB='c';
+const TABS={c:'#secC',v:'#secV',h:'#ph',e:'#pc'};
+function applyTab(){
+ if((TAB=='h'||TAB=='e')&&!EM)TAB='c';
+ for(const k in TABS)$(TABS[k]).hidden=k!=TAB;
+ document.querySelectorAll('[data-tab]').forEach(b=>{const k=b.dataset.tab;if(k=='h'||k=='e')b.hidden=!EM;b.setAttribute('aria-selected',k==TAB);});
+}
+document.addEventListener('click',e=>{const b=e.target.closest?.('[data-tab]');if(!b)return;TAB=b.dataset.tab;applyTab();window.scrollTo({top:0,behavior:'smooth'});});
+/* Si el encabezado del sitio queda fijo arriba, las pestañas se pegan justo debajo */
+function stickyOffset(){let h=0;document.querySelectorAll('body>*').forEach(el=>{if(el.id=='tabs'||el.tagName=='DIALOG'||el.tagName=='SCRIPT'||el.classList.contains('edit-bar'))return;const cs=getComputedStyle(el);if((cs.position=='sticky'||cs.position=='fixed')&&parseFloat(cs.top)===0&&el.offsetHeight&&el.offsetHeight<140)h=Math.max(h,el.getBoundingClientRect().bottom);});document.documentElement.style.setProperty('--hdr',Math.max(0,Math.round(h))+'px');}
+addEventListener('resize',stickyOffset);
 load().then(async()=>{
  AUTH=await auth();
  $('#who').textContent=AUTH?'🔓 Edición habilitada':(cfg().token?'⚠ Token inválido o sin permiso · solo lectura':'🔒 Solo lectura');
  if(!AUTH&&cfg().token)toast('Token inválido o sin permiso · solo lectura','err');
- $('#editBar').hidden=!AUTH;render();
+ $('#editBar').hidden=!AUTH;render();stickyOffset();
 });
 </script></body></html>
