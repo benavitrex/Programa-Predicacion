@@ -628,13 +628,23 @@
       "nombre": "Juan Aguilera",
       "tarea": "AN/PR",
       "gr": "1",
-      "turno": "M",
+      "turno": "MT",
       "grupo": true,
       "dias": [
-        5,
-        1
+        1,
+        2,
+        3,
+        4,
+        5
       ],
-      "activa": false
+      "activa": false,
+      "dt": {
+        "1": "M",
+        "2": "M",
+        "3": "T",
+        "4": "M",
+        "5": "T"
+      }
     },
     {
       "id": "h23",
@@ -645,6 +655,7 @@
       "grupo": true,
       "dias": [
         3,
+        5,
         6,
         0
       ],
@@ -652,6 +663,7 @@
       "dt": {
         "0": "M",
         "3": "T",
+        "5": "T",
         "6": "M"
       }
     },
@@ -664,11 +676,17 @@
       "grupo": true,
       "dias": [
         1,
+        2,
+        3,
+        4,
         5
       ],
       "activa": true,
       "dt": {
         "1": "M",
+        "2": "M",
+        "3": "M",
+        "4": "M",
         "5": "M"
       }
     },
@@ -692,12 +710,16 @@
       "dias": [
         1,
         2,
+        3,
+        4,
         5
       ],
       "activa": true,
       "dt": {
         "1": "M",
         "2": "M",
+        "3": "M",
+        "4": "M",
         "5": "M"
       }
     },
@@ -726,11 +748,13 @@
       "turno": "M",
       "grupo": true,
       "dias": [
+        6,
         0
       ],
       "activa": true,
       "dt": {
-        "0": "M"
+        "0": "M",
+        "6": "M"
       }
     },
     {
@@ -760,13 +784,17 @@
       "dias": [
         1,
         2,
-        4
+        3,
+        4,
+        5
       ],
       "activa": true,
       "dt": {
         "1": "M",
         "2": "M",
-        "4": "M"
+        "3": "M",
+        "4": "M",
+        "5": "M"
       }
     },
     {
@@ -778,12 +806,14 @@
       "grupo": true,
       "dias": [
         3,
+        6,
         0
       ],
       "activa": true,
       "dt": {
         "0": "M",
-        "3": "T"
+        "3": "T",
+        "6": "M"
       }
     },
     {
@@ -824,20 +854,22 @@
       "nombre": "Miguel Meneses",
       "tarea": "SM",
       "gr": "4",
-      "turno": "M",
+      "turno": "MT",
       "grupo": true,
       "dias": [
+        1,
+        2,
         3,
         4,
-        6,
-        0
+        5
       ],
       "activa": true,
       "dt": {
-        "0": "M",
-        "3": "M",
+        "1": "M",
+        "2": "M",
+        "3": "T",
         "4": "M",
-        "6": "M"
+        "5": "T"
       }
     },
     {
@@ -848,9 +880,14 @@
       "turno": "T",
       "grupo": true,
       "dias": [
+        3,
         5
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "3": "T",
+        "5": "T"
+      }
     },
     {
       "id": "h65",
@@ -904,9 +941,14 @@
       "turno": "M",
       "grupo": true,
       "dias": [
-        6
+        6,
+        0
       ],
-      "activa": true
+      "activa": true,
+      "dt": {
+        "0": "M",
+        "6": "M"
+      }
     },
     {
       "id": "h76",
@@ -947,20 +989,22 @@
       "nombre": "Ronny Pérez",
       "tarea": "AN/PR",
       "gr": "5",
-      "turno": "M",
+      "turno": "MT",
       "grupo": true,
       "dias": [
+        1,
         2,
+        3,
         4,
-        6,
-        0
+        5
       ],
       "activa": true,
       "dt": {
-        "0": "M",
+        "1": "M",
         "2": "M",
+        "3": "T",
         "4": "M",
-        "6": "M"
+        "5": "T"
       }
     },
     {
@@ -971,12 +1015,18 @@
       "turno": "M",
       "grupo": true,
       "dias": [
+        1,
+        2,
         3,
+        4,
         5
       ],
       "activa": true,
       "dt": {
+        "1": "M",
+        "2": "M",
         "3": "M",
+        "4": "M",
         "5": "M"
       }
     },
@@ -1055,15 +1105,19 @@
       "nombre": "Andrés Valenzuela",
       "tarea": "PTJ",
       "gr": "4",
-      "turno": "T",
+      "turno": "MT",
       "grupo": true,
       "dias": [
+        2,
         3,
+        4,
         5
       ],
       "activa": true,
       "dt": {
+        "2": "M",
         "3": "T",
+        "4": "M",
         "5": "T"
       }
     },
@@ -1112,7 +1166,7 @@
       "dt": {
         "0": "M",
         "1": "M",
-        "3": "MT",
+        "3": "T",
         "5": "T",
         "6": "M"
       }
