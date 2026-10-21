@@ -199,10 +199,27 @@ function emptyMonth(){ROWS=[];cur=0;render();clean('');}
 const lab=(k,s)=>{const[y,m]=MES.split('-').map(Number),e=k==3?new Date(y,m,0).getDate():k*7+7;return (k*7+1)+' al '+e+(s?'':' de '+new Date(y,m-1,1).toLocaleDateString('es-CL',{month:'long'}));};
 const wk=r=>Math.min(3,Math.floor((+r.f.slice(8)-1)/7));
 const wrows=k=>ROWS.filter(r=>wk(r)==k).sort((a,b)=>a.f.localeCompare(b.f)||a.hora.localeCompare(b.hora)||a.g-b.g);
-const grp=(l,a,sel,u,fl)=>a.length?`<optgroup label="${l}">${a.map(x=>`<option value="${x.id}" ${x.id==sel?'selected':''}>${esc(x.nombre)} · ${u[x.id]||0}×${fl&&fl.has(x.id)?' ↺':''}</option>`).join('')}</optgroup>`:'';
-function sel(f,r,list,ok,u,fl,cur0){
- const okS=[...ok].sort((a,b)=>(u[a.id]||0)-(u[b.id]||0)),rest=list.filter(x=>!ok.includes(x));
- return `<select class=ed data-r=${r.id} data-f=${f}><option value="">— sin asignar —</option>${grp('✓ Recomendados (disponibles ese día)',okS,cur0,u,fl)}${grp('Otros',rest,cur0,u,fl)}</select>`;
+// Selector limpio: solo las opciones disponibles ese día (más la ya asignada, marcada si ya no está disponible)
+function sel(f,r,ok,all,cur0){
+ const opts=ok.slice().sort((a,b)=>a.nombre.localeCompare(b.nombre,'es'));
+ const act=all.find(x=>x.id==cur0);
+ if(act&&!opts.some(x=>x.id==act.id))opts.unshift(act);
+ return `<select class=ed data-r=${r.id} data-f=${f}><option value="">— sin asignar —</option>${opts.map(x=>`<option value="${x.id}" ${x.id==cur0?'selected':''}>${esc(x.nombre)}${ok.some(o=>o.id==x.id)?'':' ⚠ no disponible'}</option>`).join('')}</select>`;
+}
+// Territorio automático según la casa elegida
+const terrOpts=c=>c?(c.cerca?.length?c.cerca:[c.terr]).filter(v=>v!==undefined&&v!==null&&v!=='').map(String):[];
+function autoTerr(r){
+ const o=terrOpts(DB.casas.find(x=>x.id==r.c));
+ if(!o.length){r.terr='';return;}
+ const ex=new Set(ROWS.filter(x=>x!==r&&x.f==r.f&&x.terr).map(x=>String(x.terr)));
+ r.terr=o.find(t=>!ex.has(t))||o[0];
+}
+function terrCell(r,c){
+ const o=terrOpts(c);
+ if(!c)return '<span class=mut>—</span>';
+ if(!o.length)return `<input class="ed terr" data-r=${r.id} data-f=terr value="${esc(r.terr)}" placeholder="Terr.">`;
+ if(o.length==1)return `<span class="tag active">${esc(o[0])}</span>`;
+ return `<select class="ed terr" data-r=${r.id} data-f=terr>${o.map(t=>`<option ${t==String(r.terr)?'selected':''}>${esc(t)}</option>`).join('')}</select>`;
 }
 function weekHtml(k,i,uC,uH){
  const rows=wrows(k),hasPm=new Set(rows.filter(x=>x.hora>='14:00').map(x=>x.f)),lastC=new Set((hist()[prevKey(MES)]?.rows||[]).map(r=>r.c));let pd='';
@@ -217,9 +234,9 @@ function weekHtml(k,i,uC,uH){
   hc=`<span class=tx><b class=hv>${esc(r.hora)}</b></span>${EM?`<input class="ed hora" data-r=${r.id} data-f=hora value="${esc(r.hora)}">`:''}${r.g?`<span class=cap>Grupo ${r.g}</span>`:''}`;
   if(EM){
    const okC1=DB.casas.filter(x=>x.activa!==false&&avail(x,dow,t)),okH0=DB.hermanos.filter(x=>x.grupo&&x.activa!==false&&avail(x,dow,t)),gE=okH0.filter(x=>+x.gr==+r.g),gA=gE.filter(x=>rkL(x)==0),okH=r.gs?(gA.length?gA:gE.length?gE:okH0):okH0,okC=r.gs&&okC1.some(x=>+x.gr==+r.g)?okC1.filter(x=>+x.gr==+r.g):okC1;
-   ac=`<span class=tx>${h?`<b>${esc(h.nombre)}</b>`:'<span class=mut>Sin encargado</span>'}</span>${sel('h',r,DB.hermanos.filter(x=>x.grupo),okH,uH,null,r.h)}<span class="cap ed">${r.gs&&h&&rkL(h)!=0?'⚠ No es anciano · ':''}${h?'Saca grupo: '+dabbrT(h):'Sin encargado disponible'}</span>`;
-   cc=`<span class=tx>${c?`<b>${esc(c.nombre)}</b><span class=cap>${esc(c.dir)}</span>`:'<span class=mut>Sin casa</span>'}</span>${sel('c',r,DB.casas.filter(x=>x.activa!==false||x.id==r.c),okC,uC,lastC,r.c)}<span class="cap ed">${c?(c.activa===false?'⚠ Casa en pausa · ':'')+(r.gs&&+c.gr!=+r.g?'⚠ No es casa del Grupo '+r.g+' · ':'')+(r.gs&&isOwner(c,h)?'🏠 Casa del anciano · ':'')+esc(c.dir)+' · Disp.: '+dabbrT(c):(r.gs?'⚠ Sin casa disponible en el Grupo '+r.g:'Sin casa disponible')}</span>`;
-   tc=`<span class=tx>${r.terr?`<span class="tag active">${esc(r.terr)}</span>`:'<span class=mut>—</span>'}</span><input class="ed terr" data-r=${r.id} data-f=terr value="${esc(r.terr)}">`;
+   ac=`<span class=tx>${h?`<b>${esc(h.nombre)}</b>`:'<span class=mut>Sin encargado</span>'}</span>${sel('h',r,okH,DB.hermanos,r.h)}`;
+   cc=`<span class=tx>${c?`<b>${esc(c.nombre)}</b><span class=cap>${esc(c.dir)}</span>`:'<span class=mut>Sin casa</span>'}</span>${sel('c',r,okC,DB.casas,r.c)}${c?`<span class="cap ed">${esc(c.dir)}</span>`:''}`;
+   tc=`<span class=tx>${r.terr?`<span class="tag active">${esc(r.terr)}</span>`:'<span class=mut>—</span>'}</span>${terrCell(r,c)}`;
   }else{
    ac=`<span class=tx>${h?`<b>${esc(h.nombre)}</b>`:'<span class=mut>Sin encargado</span>'}</span>`;
    cc=`<span class=tx>${c?`<b>${esc(c.nombre)}</b><span class=cap>${esc(c.dir)}</span>`:'<span class=mut>Sin casa</span>'}</span>`;
@@ -261,7 +278,7 @@ function addPm(f){
 const txt=i=>`Programa de predicación — Congregación Curauma\nSemana del ${lab(WK[i])}\n`+wrows(WK[i]).map(r=>{const c=DB.casas.find(x=>x.id==r.c),h=DB.hermanos.find(x=>x.id==r.h);
  return `${P(r.f).toLocaleDateString('es-CL',{weekday:'short',day:'2-digit'})}${feriado(r.f)?' (festivo)':''} ${r.hora}${r.g?' (G'+r.g+')':''} · ${h?.nombre||'—'} · ${c?c.nombre+' ('+c.dir+')':'—'}${r.terr?' · Terr. '+r.terr:''}`;}).join('\n');
 $('#weeks').onchange=e=>{if(!EM)return;const t=e.target,r=ROWS.find(x=>x.id==t.dataset.r),f=t.dataset.f;if(!r)return;r[f]=t.value;
- if(f=='c')r.terr=DB.casas.find(x=>x.id==t.value)?.cerca?.[0]||DB.casas.find(x=>x.id==t.value)?.terr||'';if(f=='c'||f=='h'||f=='hora')render();chg();};
+ if(f=='c')autoTerr(r);if(f=='c'||f=='h'||f=='hora'||f=='terr')render();chg();};
 document.addEventListener('click',async e=>{const d=e.target.dataset||{};
  if(d.w!==undefined){cur=+d.w;render();}
  if(d.pm&&EM){addPm(d.pm);render();chg();}
@@ -289,6 +306,7 @@ $('#editModeBtn').onclick=()=>{
  EM=!EM;
  $('#editModeBtn').textContent=EM?'✏️ Edición: on':'✏️ Edición: off';$('#editModeBtn').setAttribute('aria-pressed',EM);
  $('#ed').hidden=!EM;$('#hd').hidden=!EM;$('#gh').hidden=!EM;
+ if(EM)ROWS.forEach(r=>{if(r.c&&!r.terr)autoTerr(r);});
  if(EM&&MES&&!ROWS.length)gen();else render();
  toast(EM?'Modo edición activado — puedes editar el programa':'Modo edición desactivado',EM?'ok':'');
 };
